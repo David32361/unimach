@@ -1,0 +1,10 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    // UniMatch uses packaged avatars and never accepts image uploads.
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

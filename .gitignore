@@ -1,0 +1,36 @@
+# Flutter/Dart
+**/.dart_tool/
+**/.packages
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/build/
+
+# Firebase Functions
+firebase/functions/node_modules/
+firebase/functions/lib/
+
+# Local Firebase project selection
+.firebaserc
+.firebase/
+**/firebase_options.dart
+**/google-services.json
+**/GoogleService-Info.plist
+
+# Local configuration and credentials
+**/.env
+**/.env.*
+**/key.properties
+**/*.jks
+**/*.keystore
+**/*service-account*.json
+**/*service_account*.json
+
+# Gradle caches
+**/.gradle/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*-debug.log
