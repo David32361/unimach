@@ -42,9 +42,10 @@ git switch main
 git merge --no-ff feat/nombre-corto
 ```
 
-Cuando exista un remoto aprobado, usa `git push -u origin main` para publicar
-el historial y `git push -u origin feat/nombre-corto` para subir una rama.
-No se ha configurado remoto en este repositorio local.
+El remoto `origin` es `https://github.com/David32361/unimach.git`. Usa
+`git push -u origin main` para publicar el historial y
+`git push -u origin feat/nombre-corto` para subir una rama nueva. Revisa el
+estado con `git status` y `git fetch origin` antes de cada integracion.
 
 ## Versiones futuras
 
