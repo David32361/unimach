@@ -5,6 +5,11 @@ Keep a Changelog y las versiones siguen SemVer.
 
 ## [Unreleased]
 
+### Cambiado
+
+- Fecha limite prevista para comentarios de la ronda beta: 25 de octubre de
+  2026 a las 23:59, hora de `America/Mexico_City`.
+
 ### Pendiente
 
 - Documentar cada cambio nuevo antes de preparar una version beta.

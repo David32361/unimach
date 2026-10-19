@@ -4,6 +4,8 @@ Version actual de desarrollo: `0.1.0-dev.1+1` en ambas aplicaciones. Aun no
 existe una beta publicada para testers. Consulta [CHANGELOG.md](CHANGELOG.md)
 y [docs/VERSIONADO.md](docs/VERSIONADO.md) para continuar el versionado.
 Repositorio de codigo: <https://github.com/David32361/unimach>.
+La fecha prevista para recibir comentarios de los testers esta en
+[docs/PRUEBAS_BETA.md](docs/PRUEBAS_BETA.md).
 
 UniMatch tiene solamente dos aplicaciones conectadas al proyecto Firebase
 `unimatch-daniel-2026`:
