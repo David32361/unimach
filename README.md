@@ -1,7 +1,8 @@
 # UniMatch
 
-Version actual de desarrollo: `0.1.0-dev.3+3` en ambas aplicaciones. Aun no
-existe una beta publicada para testers. Consulta [CHANGELOG.md](CHANGELOG.md)
+Version beta actual: `0.1.0-beta.1+4` en ambas aplicaciones. El APK Android
+para testers esta en [GitHub Releases](https://github.com/David32361/unimach/releases/tag/v0.1.0-beta.1).
+Consulta [CHANGELOG.md](CHANGELOG.md)
 y [docs/VERSIONADO.md](docs/VERSIONADO.md) para continuar el versionado.
 Repositorio de codigo: <https://github.com/David32361/unimach>.
 La fecha prevista para recibir comentarios de los testers esta en
@@ -33,7 +34,7 @@ subidas de fotografias.
 - Seleccion y edicion de al menos tres gustos diferentes. Anime permite elegir
   generos y requiere al menos tres cuando se selecciona.
 - Doce avatares uniformes de gatos y perros.
-- Descubrir perfiles, indicar interes o descartarlos.
+- Descubrir perfiles en un feed desplazable, indicar interes o descartarlos.
 - Creacion automatica de Match cuando el interes es mutuo.
 - Lista de Matches y conversaciones en tiempo real.
 - Mensajes leidos y contador de pendientes.

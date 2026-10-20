@@ -6,9 +6,9 @@ este repositorio.
 
 ## Estado actual
 
-- Version de desarrollo: `0.1.0-dev.3+3` en ambos `pubspec.yaml`.
-- Sin tag ni GitHub Release. El sufijo `dev.3` indica que no es una version
-  estable ni una beta entregada a testers.
+- Version beta: `0.1.0-beta.1+4` en ambos `pubspec.yaml`.
+- Tag `v0.1.0-beta.1` y GitHub Release preliminar para testers. No es una
+  version estable.
 - Los dos proyectos comparten numero de version mientras se desarrollan como
   una sola linea de producto. El numero despues de `+` es el build number y
   debe aumentar cuando se genere una nueva compilacion Android distribuible.
@@ -50,9 +50,8 @@ estado con `git status` y `git fetch origin` antes de cada integracion.
 ## Versiones futuras
 
 - Cambios de desarrollo: aumenta `dev.N` y registra el cambio en el changelog.
-- Primera ronda beta, cuando se autorice: `0.1.0-beta.1+N` y tag preliminar
-  `v0.1.0-beta.1`, solo sobre un commit verificado.
-- Una correccion posterior a una beta distribuida usa un nuevo tag y artefacto;
+- La primera ronda beta usa `0.1.0-beta.1+4`. Una correccion posterior a una
+  beta distribuida usa un nuevo tag y artefacto;
   nunca reemplaza el anterior.
 - Reserva `1.0.0` para una version estable aprobada.
 
@@ -60,6 +59,10 @@ estado con `git status` y `git fetch origin` antes de cada integracion.
 
 `.firebaserc`, `firebase_options.dart`, `google-services.json`, claves de
 firma, archivos `.env`, caches y salidas de compilacion no se incluyen en Git.
+La beta Android se firma con `unimatch_user/android/app/upload-keystore.jks`
+y `unimatch_user/android/key.properties`, ambos ignorados. Conserva una copia
+segura de los dos archivos: las siguientes betas deben usar la misma firma
+para instalarse como actualizaciones.
 En un equipo nuevo se deben configurar las dos apps con FlutterFire en el
 mismo proyecto Firebase y obtener la configuracion Android correspondiente.
 Consulta el README principal para los comandos de ejecucion.

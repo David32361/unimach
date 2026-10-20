@@ -6,7 +6,10 @@ const {
   assertSucceeds,
   initializeTestEnvironment,
 } = require('@firebase/rules-unit-testing');
-const { doc, serverTimestamp, setDoc, updateDoc } = require('firebase/firestore');
+const {
+  collection, doc, getDocs, limit, orderBy, query, serverTimestamp,
+  setDoc, startAfter, updateDoc, where,
+} = require('firebase/firestore');
 
 test('profile rules require three tastes and three anime genres', async () => {
   const environment = await initializeTestEnvironment({
@@ -97,6 +100,31 @@ test('profile rules require three tastes and three anime genres', async () => {
     await assertSucceeds(updateDoc(legacyProfile, {
       interests: ['movies_action', 'music_rock', 'books_fantasy'],
     }));
+    await assertSucceeds(setDoc(doc(legacyDatabase, 'publicProfiles/bob'), {
+      ...legacyCommon,
+      uid: 'bob',
+      updatedAt: serverTimestamp(),
+    }));
+
+    const profiles = collection(database, 'publicProfiles');
+    const activeProfiles = query(
+      profiles,
+      where('accountStatus', '==', 'active'),
+      orderBy('createdAt', 'desc'),
+      limit(1),
+    );
+    const firstPage = await assertSucceeds(getDocs(activeProfiles));
+    const nextPage = await assertSucceeds(getDocs(query(
+      profiles,
+      where('accountStatus', '==', 'active'),
+      orderBy('createdAt', 'desc'),
+      startAfter(firstPage.docs[0]),
+      limit(1),
+    )));
+    if (firstPage.size !== 1 || nextPage.size !== 1 ||
+        firstPage.docs[0].id === nextPage.docs[0].id) {
+      throw new Error('Discovery pagination did not return distinct profiles.');
+    }
   } finally {
     await environment.cleanup();
   }
