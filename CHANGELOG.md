@@ -9,6 +9,17 @@ Keep a Changelog y las versiones siguen SemVer.
 
 - Documentar cada cambio nuevo antes de preparar una version beta.
 
+## [0.1.0-dev.3] - 2026-10-19
+
+### Cambiado
+
+- Recuperacion de contrasena por correo con confirmacion que no revela si una
+  cuenta existe y mensajes enviados en espanol.
+- Acceso con Google y enlace a la recuperacion oficial de Google disponibles
+  desde la pantalla de recuperacion.
+- Entrega de desarrollo registrada con vencimiento el 20 de octubre de 2026;
+  el codigo se publico el 19 de octubre, sin distribuirlo a testers.
+
 ## [0.1.0-dev.2] - 2026-10-19
 
 ### Agregado
