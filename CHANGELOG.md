@@ -7,7 +7,25 @@ Keep a Changelog y las versiones siguen SemVer.
 
 ### Pendiente
 
-- Documentar cada cambio nuevo antes de preparar una version beta.
+- Documentar los cambios antes de cada nueva version beta.
+
+## [0.1.0-beta.1] - 2026-10-19
+
+### Agregado
+
+- Descubrimiento en un feed vertical de perfiles con paginacion automatica
+  hasta agotar los resultados y opcion de actualizar.
+- Primer APK beta Android para tres testers, firmado con una clave de
+  distribucion persistente y publicado en GitHub Releases.
+
+### Corregido
+
+- La compilacion de lanzamiento solicita permiso de Internet para usar Firebase.
+
+### Pruebas beta
+
+- Comentarios hasta el 25 de octubre de 2026 a las 23:59, zona
+  `America/Mexico_City`.
 
 ## [0.1.0-dev.3] - 2026-10-19
 

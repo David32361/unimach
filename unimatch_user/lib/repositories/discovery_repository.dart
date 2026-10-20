@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:unimatch_user/core/errors/discovery_failure.dart';
-import 'package:unimatch_user/models/public_profile.dart';
 import 'package:unimatch_user/services/discovery_service.dart';
 
 class DiscoveryRepository {
@@ -8,8 +7,15 @@ class DiscoveryRepository {
 
   final DiscoveryService _service;
 
-  Stream<List<PublicProfile>> watchPublicProfiles() =>
-      _service.watchPublicProfiles();
+  Future<DiscoveryPage> loadProfilesPage({
+    QueryDocumentSnapshot<Map<String, dynamic>>? after,
+  }) async {
+    try {
+      return await _service.loadProfilesPage(after: after);
+    } on FirebaseException catch (error) {
+      throw DiscoveryFailure.fromFirebase(error);
+    }
+  }
 
   Stream<Set<String>> watchOutgoingLikes(String uid) =>
       _service.watchOutgoingLikes(uid);

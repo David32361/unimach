@@ -1,16 +1,31 @@
 # Pruebas beta de UniMatch
 
-## Calendario previsto
+## Version para testers
 
-- Fecha limite para comentarios de los tres testers: **25 de octubre de 2026,
-  23:59**, zona horaria `America/Mexico_City`.
-- Inicio previsto del cierre de comentarios: **26 de octubre de 2026,
-  00:00**, en la misma zona horaria.
+- APK Android: [UniMatch 0.1.0-beta.1](https://github.com/David32361/unimach/releases/tag/v0.1.0-beta.1).
+- SHA-256 del APK: `6ca5f90203875c7b0f8c3b45b046ae0cbca3d22a8d185573deb997ec5ae30051`.
+- Los tres testers deben instalar **el mismo APK** adjunto a esa Release.
+- Comentarios y problemas: [issue de pruebas beta](https://github.com/David32361/unimach/issues/3).
 
-La ronda beta aun no se ha publicado. No hay version beta, instalador, Release ni
-issues de testers asignados. La fecha anterior del 20 de octubre queda
-sustituida por la indicada arriba para esta ronda.
+## Calendario
 
-Cuando se prepare la beta, los tres testers deberan usar el mismo artefacto
-verificado. La documentacion de descarga, reporte de resultados y cualquier
-automatizacion de cierre deberan usar estas fechas antes de su activacion.
+- Comentarios hasta el **25 de octubre de 2026, 23:59**, zona
+  `America/Mexico_City`.
+- El cierre de recepcion empieza el **26 de octubre de 2026, 00:00** en esa
+  misma zona horaria.
+
+## Instalacion y actualizaciones
+
+1. Descarga el APK de la Release desde un telefono Android.
+2. Abre el archivo y autoriza la instalacion desde esa fuente si Android lo
+   solicita. No se publica en Play Store.
+3. Si tenias una compilacion de depuracion, desinstalala antes: esa version
+   usa otra firma. Guarda lo que necesites antes de hacerlo; los datos del
+   perfil estan en Firebase, pero datos locales podrian perderse.
+4. Para betas posteriores, instala el nuevo APK sobre esta beta sin borrar la
+   aplicacion. Se reutilizara la misma firma y aumentara el build number.
+
+No compartas capturas con datos personales ni contrasenas en el issue publico.
+Incluye dispositivo, version de Android, pasos para reproducir el problema y
+resultado esperado. La recepcion de comentarios no altera la fecha limite del
+25 de octubre.

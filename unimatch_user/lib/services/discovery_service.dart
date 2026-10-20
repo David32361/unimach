@@ -1,22 +1,39 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:unimatch_user/models/public_profile.dart';
 
+class DiscoveryPage {
+  const DiscoveryPage({
+    required this.profiles,
+    required this.lastDocument,
+    required this.hasMore,
+  });
+
+  final List<PublicProfile> profiles;
+  final QueryDocumentSnapshot<Map<String, dynamic>>? lastDocument;
+  final bool hasMore;
+}
+
 class DiscoveryService {
   DiscoveryService(this._firestore);
 
   final FirebaseFirestore _firestore;
+  static const pageSize = 20;
 
-  Stream<List<PublicProfile>> watchPublicProfiles() {
-    return _firestore
+  Future<DiscoveryPage> loadProfilesPage({
+    QueryDocumentSnapshot<Map<String, dynamic>>? after,
+  }) async {
+    var query = _firestore
         .collection('publicProfiles')
         .where('accountStatus', isEqualTo: 'active')
-        .limit(50)
-        .snapshots()
-        .map(
-          (snapshot) => snapshot.docs
-              .map(PublicProfile.fromSnapshot)
-              .toList(growable: false),
-        );
+        .orderBy('createdAt', descending: true)
+        .limit(pageSize);
+    if (after != null) query = query.startAfterDocument(after);
+    final snapshot = await query.get();
+    return DiscoveryPage(
+      profiles: snapshot.docs.map(PublicProfile.fromSnapshot).toList(),
+      lastDocument: snapshot.docs.lastOrNull,
+      hasMore: snapshot.docs.length == pageSize,
+    );
   }
 
   Stream<Set<String>> watchOutgoingLikes(String uid) {
