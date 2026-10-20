@@ -1,6 +1,6 @@
 # UniMatch
 
-Version actual de desarrollo: `0.1.0-dev.2+2` en ambas aplicaciones. Aun no
+Version actual de desarrollo: `0.1.0-dev.3+3` en ambas aplicaciones. Aun no
 existe una beta publicada para testers. Consulta [CHANGELOG.md](CHANGELOG.md)
 y [docs/VERSIONADO.md](docs/VERSIONADO.md) para continuar el versionado.
 Repositorio de codigo: <https://github.com/David32361/unimach>.
@@ -24,7 +24,9 @@ subidas de fotografias.
 - Registro e inicio de sesion con correo y Google.
 - Redireccion automatica al modulo administrativo cuando el token contiene el
   custom claim `admin: true`.
-- Recuperacion de contrasena y cierre de sesion.
+- Recuperacion de contrasena por enlace de correo, acceso con Google y cierre
+  de sesion. Las cuentas creadas solo con Google recuperan su acceso en Google
+  desde el enlace de la pantalla de recuperacion.
 - Perfil con nombre, edad, genero, universidad, carrera y descripcion.
 - Busqueda de instituciones de Hidalgo y carreras por nombre o siglas. El
   catalogo inicial y sus fuentes estan en [docs/CATALOGOS.md](docs/CATALOGOS.md).

@@ -37,6 +37,9 @@ class AuthRepository {
     try {
       await _service.sendPasswordReset(email);
     } on FirebaseAuthException catch (error) {
+      if (error.code == 'user-not-found' || error.code == 'email-not-found') {
+        return;
+      }
       throw AuthFailure.fromFirebase(error);
     }
   }

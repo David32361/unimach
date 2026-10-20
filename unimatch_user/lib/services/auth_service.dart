@@ -44,8 +44,9 @@ class AuthService {
     }
   }
 
-  Future<void> sendPasswordReset(String email) {
-    return _auth.sendPasswordResetEmail(email: email.trim());
+  Future<void> sendPasswordReset(String email) async {
+    await _auth.setLanguageCode('es');
+    await _auth.sendPasswordResetEmail(email: email.trim());
   }
 
   Future<void> signOut() async {
