@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:unimatch_user/models/academic_catalog.dart';
 import 'package:unimatch_user/models/interest_catalog.dart';
 import 'package:unimatch_user/presentation/widgets/avatar_sprite.dart';
+import 'package:unimatch_user/presentation/widgets/interest_picker.dart';
+import 'package:unimatch_user/presentation/widgets/searchable_academic_field.dart';
 import 'package:unimatch_user/providers/profile_providers.dart';
 
 class ProfileEditScreen extends ConsumerStatefulWidget {
@@ -14,10 +17,13 @@ class ProfileEditScreen extends ConsumerStatefulWidget {
 
 class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
   final _formKey = GlobalKey<FormState>();
-  late final TextEditingController _universityController;
-  late final TextEditingController _careerController;
   late final TextEditingController _descriptionController;
   late final Set<String> _interests;
+  late final Set<String> _animeGenres;
+  late final String _initialUniversity;
+  late final String _initialCareer;
+  AcademicOption? _university;
+  AcademicOption? _career;
   late int _avatarId;
 
   @override
@@ -25,16 +31,17 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
     super.initState();
     final profile = ref.read(currentProfileProvider).value!;
     _avatarId = profile.avatarId;
-    _universityController = TextEditingController(text: profile.university);
-    _careerController = TextEditingController(text: profile.career);
+    _initialUniversity = profile.university;
+    _initialCareer = profile.career;
+    _university = findAcademicOption(hidalgoUniversities, profile.university);
+    _career = findAcademicOption(careerCatalog, profile.career);
     _descriptionController = TextEditingController(text: profile.description);
     _interests = profile.interests.toSet();
+    _animeGenres = profile.animeGenres.toSet();
   }
 
   @override
   void dispose() {
-    _universityController.dispose();
-    _careerController.dispose();
     _descriptionController.dispose();
     super.dispose();
   }
@@ -46,20 +53,22 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
 
   Future<void> _save() async {
     if (!_formKey.currentState!.validate()) return;
-    if (_interests.length < 3) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Selecciona al menos 3 intereses.')),
-      );
+    final interestError = validateInterestSelection(_interests, _animeGenres);
+    if (interestError != null) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(interestError)));
       return;
     }
     final saved = await ref
         .read(profileControllerProvider.notifier)
         .updateProfile(
           avatarId: _avatarId,
-          university: _universityController.text,
-          career: _careerController.text,
+          university: _university!.name,
+          career: _career!.name,
           description: _descriptionController.text,
           interests: _interests.toList()..sort(),
+          animeGenres: _animeGenres.toList()..sort(),
         );
     if (saved && mounted) context.pop();
   }
@@ -104,18 +113,22 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                 ),
               ),
               const SizedBox(height: 24),
-              TextFormField(
-                controller: _universityController,
-                textCapitalization: TextCapitalization.words,
-                decoration: const InputDecoration(labelText: 'Universidad'),
-                validator: _required,
+              SearchableAcademicField(
+                label: 'Universidad',
+                icon: Icons.school_outlined,
+                options: hidalgoUniversities,
+                initialValue: _initialUniversity,
+                enabled: !operation.isLoading,
+                onSelected: (option) => _university = option,
               ),
               const SizedBox(height: 14),
-              TextFormField(
-                controller: _careerController,
-                textCapitalization: TextCapitalization.words,
-                decoration: const InputDecoration(labelText: 'Carrera'),
-                validator: _required,
+              SearchableAcademicField(
+                label: 'Carrera',
+                icon: Icons.menu_book_outlined,
+                options: careerCatalog,
+                initialValue: _initialCareer,
+                enabled: !operation.isLoading,
+                onSelected: (option) => _career = option,
               ),
               const SizedBox(height: 14),
               TextFormField(
@@ -129,38 +142,32 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                 validator: _required,
               ),
               const SizedBox(height: 16),
-              for (final category in interestCatalog) ...[
-                Text(
-                  category.name,
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: [
-                    for (final option in category.options)
-                      ChoiceChip(
-                        label: Text(option.label),
-                        selected: _interests.contains(option.id),
-                        onSelected: operation.isLoading
-                            ? null
-                            : (selected) {
-                                setState(() {
-                                  if (selected) {
-                                    _interests.add(option.id);
-                                  } else {
-                                    _interests.remove(option.id);
-                                  }
-                                });
-                              },
-                      ),
-                  ],
-                ),
-                const SizedBox(height: 18),
-              ],
+              InterestPicker(
+                interests: _interests,
+                animeGenres: _animeGenres,
+                enabled: !operation.isLoading,
+                onInterestChanged: (change) {
+                  final (id, selected) = change;
+                  setState(() {
+                    if (selected) {
+                      _interests.add(id);
+                    } else {
+                      _interests.remove(id);
+                      if (id == 'anime') _animeGenres.clear();
+                    }
+                  });
+                },
+                onAnimeGenreChanged: (change) {
+                  final (id, selected) = change;
+                  setState(() {
+                    if (selected) {
+                      _animeGenres.add(id);
+                    } else {
+                      _animeGenres.remove(id);
+                    }
+                  });
+                },
+              ),
               FilledButton.icon(
                 onPressed: operation.isLoading ? null : _save,
                 icon: operation.isLoading

@@ -11,6 +11,7 @@ class PublicProfile {
     required this.description,
     required this.avatarId,
     required this.interests,
+    required this.animeGenres,
   });
 
   final String uid;
@@ -22,6 +23,7 @@ class PublicProfile {
   final String description;
   final int avatarId;
   final List<String> interests;
+  final List<String> animeGenres;
 
   factory PublicProfile.fromSnapshot(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
@@ -37,6 +39,7 @@ class PublicProfile {
       description: data['description'] as String? ?? '',
       avatarId: data['avatarId'] as int? ?? 0,
       interests: List<String>.from(data['interests'] as List? ?? const []),
+      animeGenres: List<String>.from(data['animeGenres'] as List? ?? const []),
     );
   }
 }

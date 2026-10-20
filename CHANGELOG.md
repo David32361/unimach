@@ -5,14 +5,24 @@ Keep a Changelog y las versiones siguen SemVer.
 
 ## [Unreleased]
 
-### Cambiado
-
-- Fecha limite prevista para comentarios de la ronda beta: 25 de octubre de
-  2026 a las 23:59, hora de `America/Mexico_City`.
-
 ### Pendiente
 
 - Documentar cada cambio nuevo antes de preparar una version beta.
+
+## [0.1.0-dev.2] - 2026-10-19
+
+### Agregado
+
+- Catalogo inicial de instituciones de educacion superior de Hidalgo y carreras
+  generales, con busqueda por nombre o siglas en alta y edicion de perfil.
+- Anime como gusto y seleccion independiente de sus generos.
+
+### Cambiado
+
+- Se requieren tres gustos diferentes y, al elegir Anime, tres generos distintos.
+- El perfil publico muestra los generos de anime seleccionados.
+- Fecha limite prevista para comentarios de la ronda beta: 25 de octubre de
+  2026 a las 23:59, hora de `America/Mexico_City`.
 
 ## [0.1.0-dev.1] - 2026-10-14
 

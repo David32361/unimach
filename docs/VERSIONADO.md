@@ -6,8 +6,8 @@ este repositorio.
 
 ## Estado actual
 
-- Version de desarrollo: `0.1.0-dev.1+1` en ambos `pubspec.yaml`.
-- Sin tag ni GitHub Release. El sufijo `dev.1` indica que no es una version
+- Version de desarrollo: `0.1.0-dev.2+2` en ambos `pubspec.yaml`.
+- Sin tag ni GitHub Release. El sufijo `dev.2` indica que no es una version
   estable ni una beta entregada a testers.
 - Los dos proyectos comparten numero de version mientras se desarrollan como
   una sola linea de producto. El numero despues de `+` es el build number y

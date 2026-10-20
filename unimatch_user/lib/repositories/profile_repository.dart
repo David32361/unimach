@@ -36,9 +36,13 @@ class ProfileRepository {
     }
   }
 
-  Future<void> updateInterests(String uid, List<String> interests) async {
+  Future<void> updateInterests(
+    String uid,
+    List<String> interests,
+    List<String> animeGenres,
+  ) async {
     try {
-      await _service.updateInterests(uid, interests);
+      await _service.updateInterests(uid, interests, animeGenres);
     } on FirebaseException catch (error) {
       throw ProfileFailure.fromFirebase(error);
     }
@@ -51,6 +55,7 @@ class ProfileRepository {
     required String career,
     required String description,
     required List<String> interests,
+    required List<String> animeGenres,
   }) async {
     try {
       await _service.updateProfile(
@@ -60,6 +65,7 @@ class ProfileRepository {
         career: career,
         description: description,
         interests: interests,
+        animeGenres: animeGenres,
       );
     } on FirebaseException catch (error) {
       throw ProfileFailure.fromFirebase(error);

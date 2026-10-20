@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:unimatch_user/models/academic_catalog.dart';
 import 'package:unimatch_user/presentation/widgets/avatar_sprite.dart';
+import 'package:unimatch_user/presentation/widgets/searchable_academic_field.dart';
 import 'package:unimatch_user/providers/auth_providers.dart';
 import 'package:unimatch_user/providers/profile_providers.dart';
 
@@ -16,10 +18,10 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _nameController;
   final _ageController = TextEditingController();
-  final _universityController = TextEditingController();
-  final _careerController = TextEditingController();
   final _descriptionController = TextEditingController();
   String? _gender;
+  AcademicOption? _university;
+  AcademicOption? _career;
   int _avatarId = 0;
 
   static const _genders = [
@@ -40,8 +42,6 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
   void dispose() {
     _nameController.dispose();
     _ageController.dispose();
-    _universityController.dispose();
-    _careerController.dispose();
     _descriptionController.dispose();
     super.dispose();
   }
@@ -55,8 +55,8 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
           name: _nameController.text,
           age: int.parse(_ageController.text),
           gender: _gender!,
-          university: _universityController.text,
-          career: _careerController.text,
+          university: _university!.name,
+          career: _career!.name,
           description: _descriptionController.text,
           avatarId: _avatarId,
         );
@@ -188,24 +188,20 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
                           value == null ? 'Selecciona una opcion.' : null,
                     ),
                     const SizedBox(height: 14),
-                    TextFormField(
-                      controller: _universityController,
-                      textCapitalization: TextCapitalization.words,
-                      decoration: const InputDecoration(
-                        labelText: 'Universidad',
-                        prefixIcon: Icon(Icons.school_outlined),
-                      ),
-                      validator: (value) => _required(value, 'tu universidad'),
+                    SearchableAcademicField(
+                      label: 'Universidad',
+                      icon: Icons.school_outlined,
+                      options: hidalgoUniversities,
+                      enabled: !operation.isLoading,
+                      onSelected: (option) => _university = option,
                     ),
                     const SizedBox(height: 14),
-                    TextFormField(
-                      controller: _careerController,
-                      textCapitalization: TextCapitalization.words,
-                      decoration: const InputDecoration(
-                        labelText: 'Carrera',
-                        prefixIcon: Icon(Icons.menu_book_outlined),
-                      ),
-                      validator: (value) => _required(value, 'tu carrera'),
+                    SearchableAcademicField(
+                      label: 'Carrera',
+                      icon: Icons.menu_book_outlined,
+                      options: careerCatalog,
+                      enabled: !operation.isLoading,
+                      onSelected: (option) => _career = option,
                     ),
                     const SizedBox(height: 14),
                     TextFormField(

@@ -7,6 +7,7 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "tsc",
+    "test:rules": "node --test test/firestore.rules.test.cjs",
     "lint": "eslint --ext .js,.ts src",
     "serve": "npm run build && firebase emulators:start --only functions",
     "deploy": "npm run build && firebase deploy --only functions"
@@ -16,9 +17,14 @@
     "firebase-functions": "^7.0.0"
   },
   "devDependencies": {
+    "@firebase/rules-unit-testing": "^6.0.0",
     "@typescript-eslint/eslint-plugin": "^8.44.0",
     "@typescript-eslint/parser": "^8.44.0",
     "eslint": "^9.36.0",
+    "firebase": "^13.0.0",
     "typescript": "^5.9.2"
+  },
+  "overrides": {
+    "@grpc/grpc-js": "^1.14.5"
   }
 }

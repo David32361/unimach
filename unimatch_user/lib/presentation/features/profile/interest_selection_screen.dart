@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:unimatch_user/models/interest_catalog.dart';
+import 'package:unimatch_user/presentation/widgets/interest_picker.dart';
 import 'package:unimatch_user/providers/auth_providers.dart';
 import 'package:unimatch_user/providers/profile_providers.dart';
 
@@ -16,6 +17,7 @@ class InterestSelectionScreen extends ConsumerStatefulWidget {
 class _InterestSelectionScreenState
     extends ConsumerState<InterestSelectionScreen> {
   final _selected = <String>{};
+  final _animeGenres = <String>{};
 
   @override
   void initState() {
@@ -23,20 +25,25 @@ class _InterestSelectionScreenState
     _selected.addAll(
       ref.read(currentProfileProvider).value?.interests ?? const [],
     );
+    _animeGenres.addAll(
+      ref.read(currentProfileProvider).value?.animeGenres ?? const [],
+    );
   }
 
   Future<void> _save() async {
-    if (_selected.length < 3) {
+    final validationError = validateInterestSelection(_selected, _animeGenres);
+    if (validationError != null) {
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
-        ..showSnackBar(
-          const SnackBar(content: Text('Selecciona al menos 3 intereses.')),
-        );
+        ..showSnackBar(SnackBar(content: Text(validationError)));
       return;
     }
     final saved = await ref
         .read(profileControllerProvider.notifier)
-        .updateInterests(_selected.toList()..sort());
+        .updateInterests(
+          _selected.toList()..sort(),
+          _animeGenres.toList()..sort(),
+        );
     if (saved && mounted) {
       context.go('/home');
     }
@@ -85,38 +92,32 @@ class _InterestSelectionScreenState
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   const SizedBox(height: 20),
-                  for (final category in interestCatalog) ...[
-                    Text(
-                      category.name,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: [
-                        for (final option in category.options)
-                          ChoiceChip(
-                            label: Text(option.label),
-                            selected: _selected.contains(option.id),
-                            onSelected: operation.isLoading
-                                ? null
-                                : (selected) {
-                                    setState(() {
-                                      if (selected) {
-                                        _selected.add(option.id);
-                                      } else {
-                                        _selected.remove(option.id);
-                                      }
-                                    });
-                                  },
-                          ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                  ],
+                  InterestPicker(
+                    interests: _selected,
+                    animeGenres: _animeGenres,
+                    enabled: !operation.isLoading,
+                    onInterestChanged: (change) {
+                      final (id, selected) = change;
+                      setState(() {
+                        if (selected) {
+                          _selected.add(id);
+                        } else {
+                          _selected.remove(id);
+                          if (id == 'anime') _animeGenres.clear();
+                        }
+                      });
+                    },
+                    onAnimeGenreChanged: (change) {
+                      final (id, selected) = change;
+                      setState(() {
+                        if (selected) {
+                          _animeGenres.add(id);
+                        } else {
+                          _animeGenres.remove(id);
+                        }
+                      });
+                    },
+                  ),
                 ],
               ),
             ),

@@ -36,6 +36,42 @@ service cloud.firestore {
         || exists(/databases/$(database)/documents/blocks/$(user2 + '_' + user1));
     }
 
+    function validInterestFields(data) {
+      let genres = data.get('animeGenres', []);
+      return data.interests is list
+        && data.interests.size() <= 30
+        && data.interests.toSet().size() == data.interests.size()
+        && data.interests.hasOnly([
+          'movies_action', 'movies_horror', 'movies_comedy',
+          'movies_romance', 'movies_fantasy', 'movies_scifi',
+          'music_rock', 'music_pop', 'music_electronic',
+          'music_rap', 'music_regional', 'music_classical',
+          'sports_soccer', 'sports_basketball', 'sports_swimming',
+          'sports_gym', 'sports_athletics',
+          'games_rpg', 'games_fps', 'games_strategy',
+          'games_moba', 'games_sports',
+          'books_fantasy', 'books_scifi', 'books_romance',
+          'books_mystery', 'books_horror', 'anime'
+        ])
+        && genres is list
+        && genres.size() <= 14
+        && genres.toSet().size() == genres.size()
+        && genres.hasOnly([
+          'anime_action', 'anime_adventure', 'anime_comedy',
+          'anime_drama', 'anime_fantasy', 'anime_horror',
+          'anime_isekai', 'anime_mecha', 'anime_mystery',
+          'anime_romance', 'anime_scifi', 'anime_slice_of_life',
+          'anime_sports', 'anime_supernatural'
+        ]);
+    }
+
+    function validInterestSelection(data) {
+      let genres = data.get('animeGenres', []);
+      return data.interests.size() >= 3
+        && (('anime' in data.interests && genres.size() >= 3)
+          || (!('anime' in data.interests) && genres.size() == 0));
+    }
+
     function validPublicProfile(userId, data) {
       return data.keys().hasOnly([
           'uid',
@@ -47,6 +83,7 @@ service cloud.firestore {
           'description',
           'avatarId',
           'interests',
+          'animeGenres',
           'createdAt',
           'updatedAt',
           'accountStatus'
@@ -72,37 +109,7 @@ service cloud.firestore {
         && data.avatarId is int
         && data.avatarId >= 0
         && data.avatarId < 12
-        && data.interests is list
-        && data.interests.size() <= 30
-        && data.interests.hasOnly([
-          'movies_action',
-          'movies_horror',
-          'movies_comedy',
-          'movies_romance',
-          'movies_fantasy',
-          'movies_scifi',
-          'music_rock',
-          'music_pop',
-          'music_electronic',
-          'music_rap',
-          'music_regional',
-          'music_classical',
-          'sports_soccer',
-          'sports_basketball',
-          'sports_swimming',
-          'sports_gym',
-          'sports_athletics',
-          'games_rpg',
-          'games_fps',
-          'games_strategy',
-          'games_moba',
-          'games_sports',
-          'books_fantasy',
-          'books_scifi',
-          'books_romance',
-          'books_mystery',
-          'books_horror'
-        ])
+        && validInterestFields(data)
         && data.accountStatus in ['active', 'suspended', 'banned', 'deleted'];
     }
 
@@ -118,6 +125,7 @@ service cloud.firestore {
           'description',
           'avatarId',
           'interests',
+          'animeGenres',
           'createdAt',
           'lastActivity',
           'accountStatus',
@@ -145,37 +153,7 @@ service cloud.firestore {
         && data.avatarId is int
         && data.avatarId >= 0
         && data.avatarId < 12
-        && data.interests is list
-        && data.interests.size() <= 30
-        && data.interests.hasOnly([
-          'movies_action',
-          'movies_horror',
-          'movies_comedy',
-          'movies_romance',
-          'movies_fantasy',
-          'movies_scifi',
-          'music_rock',
-          'music_pop',
-          'music_electronic',
-          'music_rap',
-          'music_regional',
-          'music_classical',
-          'sports_soccer',
-          'sports_basketball',
-          'sports_swimming',
-          'sports_gym',
-          'sports_athletics',
-          'games_rpg',
-          'games_fps',
-          'games_strategy',
-          'games_moba',
-          'games_sports',
-          'books_fantasy',
-          'books_scifi',
-          'books_romance',
-          'books_mystery',
-          'books_horror'
-        ])
+        && validInterestFields(data)
         && data.accountStatus in ['active', 'suspended', 'banned', 'deleted']
         && data.profileComplete == true;
     }
@@ -188,17 +166,22 @@ service cloud.firestore {
         && validProfile(userId, request.resource.data)
         && request.resource.data.accountStatus == 'active'
         && request.resource.data.interests.size() == 0
+        && request.resource.data.get('animeGenres', []).size() == 0
         && request.resource.data.createdAt == request.time
         && request.resource.data.lastActivity == request.time;
 
       allow update: if (owns(userId)
           && validProfile(userId, request.resource.data)
+          && (!request.resource.data.diff(resource.data).affectedKeys().hasAny([
+            'interests', 'animeGenres'
+          ]) || validInterestSelection(request.resource.data))
           && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
             'avatarId',
             'description',
             'university',
             'career',
             'interests',
+            'animeGenres',
             'lastActivity'
           ]))
         || (isAdmin()
@@ -290,17 +273,22 @@ service cloud.firestore {
         && validPublicProfile(userId, request.resource.data)
         && request.resource.data.accountStatus == 'active'
         && request.resource.data.interests.size() == 0
+        && request.resource.data.get('animeGenres', []).size() == 0
         && request.resource.data.createdAt == request.time
         && request.resource.data.updatedAt == request.time;
 
       allow update: if (owns(userId)
           && validPublicProfile(userId, request.resource.data)
+          && (!request.resource.data.diff(resource.data).affectedKeys().hasAny([
+            'interests', 'animeGenres'
+          ]) || validInterestSelection(request.resource.data))
           && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
             'avatarId',
             'description',
             'university',
             'career',
             'interests',
+            'animeGenres',
             'updatedAt'
           ]))
         || (isAdmin()
