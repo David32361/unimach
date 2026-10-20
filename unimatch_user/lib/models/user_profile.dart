@@ -12,6 +12,7 @@ class UserProfile {
     required this.description,
     required this.avatarId,
     required this.interests,
+    required this.animeGenres,
     required this.accountStatus,
     required this.profileComplete,
     this.createdAt,
@@ -28,6 +29,7 @@ class UserProfile {
   final String description;
   final int avatarId;
   final List<String> interests;
+  final List<String> animeGenres;
   final String accountStatus;
   final bool profileComplete;
   final DateTime? createdAt;
@@ -48,6 +50,7 @@ class UserProfile {
       description: data['description'] as String? ?? '',
       avatarId: data['avatarId'] as int? ?? 0,
       interests: List<String>.from(data['interests'] as List? ?? const []),
+      animeGenres: List<String>.from(data['animeGenres'] as List? ?? const []),
       accountStatus: data['accountStatus'] as String? ?? 'active',
       profileComplete: data['profileComplete'] as bool? ?? false,
       createdAt: (data['createdAt'] as Timestamp?)?.toDate(),

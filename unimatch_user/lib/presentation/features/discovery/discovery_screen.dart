@@ -21,6 +21,8 @@ class DiscoveryScreen extends ConsumerWidget {
     final ownUid = ref.watch(firebaseAuthProvider).currentUser?.uid;
     final ownInterests =
         ref.watch(currentProfileProvider).value?.interests.toSet() ?? {};
+    final ownAnimeGenres =
+        ref.watch(currentProfileProvider).value?.animeGenres.toSet() ?? {};
 
     ref.listen<AsyncValue<void>>(discoveryControllerProvider, (_, next) {
       if (next.hasError && !next.isLoading) {
@@ -62,15 +64,21 @@ class DiscoveryScreen extends ConsumerWidget {
     return _ProfileCandidate(
       profile: candidates.first,
       ownInterests: ownInterests,
+      ownAnimeGenres: ownAnimeGenres,
     );
   }
 }
 
 class _ProfileCandidate extends ConsumerWidget {
-  const _ProfileCandidate({required this.profile, required this.ownInterests});
+  const _ProfileCandidate({
+    required this.profile,
+    required this.ownInterests,
+    required this.ownAnimeGenres,
+  });
 
   final PublicProfile profile;
   final Set<String> ownInterests;
+  final Set<String> ownAnimeGenres;
 
   Future<void> _like(BuildContext context, WidgetRef ref) async {
     final matched = await ref
@@ -205,6 +213,15 @@ class _ProfileCandidate extends ConsumerWidget {
                                 ? const Icon(Icons.check_rounded, size: 16)
                                 : null,
                             label: Text(interestLabels[interest] ?? interest),
+                          ),
+                        for (final genre in profile.animeGenres)
+                          Chip(
+                            avatar: ownAnimeGenres.contains(genre)
+                                ? const Icon(Icons.check_rounded, size: 16)
+                                : null,
+                            label: Text(
+                              'Anime: ${animeGenreLabels[genre] ?? genre}',
+                            ),
                           ),
                       ],
                     ),

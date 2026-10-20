@@ -67,7 +67,10 @@ class ProfileController extends AsyncNotifier<void> {
     }
   }
 
-  Future<bool> updateInterests(List<String> interests) async {
+  Future<bool> updateInterests(
+    List<String> interests,
+    List<String> animeGenres,
+  ) async {
     final user = ref.read(firebaseAuthProvider).currentUser;
     if (user == null) return false;
 
@@ -75,7 +78,7 @@ class ProfileController extends AsyncNotifier<void> {
     try {
       await ref
           .read(profileRepositoryProvider)
-          .updateInterests(user.uid, interests);
+          .updateInterests(user.uid, interests, animeGenres);
       state = const AsyncData(null);
       return true;
     } catch (error, stackTrace) {
@@ -90,6 +93,7 @@ class ProfileController extends AsyncNotifier<void> {
     required String career,
     required String description,
     required List<String> interests,
+    required List<String> animeGenres,
   }) async {
     final user = ref.read(firebaseAuthProvider).currentUser;
     if (user == null) return false;
@@ -104,6 +108,7 @@ class ProfileController extends AsyncNotifier<void> {
             career: career,
             description: description,
             interests: interests,
+            animeGenres: animeGenres,
           );
       state = const AsyncData(null);
       return true;

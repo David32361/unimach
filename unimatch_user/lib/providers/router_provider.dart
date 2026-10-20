@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:unimatch_admin/presentation/features/admin/admin_shell_screen.dart';
+import 'package:unimatch_user/models/interest_catalog.dart';
 import 'package:unimatch_user/presentation/features/auth/account_unavailable_screen.dart';
 import 'package:unimatch_user/presentation/features/auth/forgot_password_screen.dart';
 import 'package:unimatch_user/presentation/features/auth/login_screen.dart';
@@ -83,7 +84,11 @@ final routerProvider = Provider<GoRouter>((ref) {
       if (!hasProfile && state.matchedLocation != '/profile/setup') {
         return '/profile/setup';
       }
-      final hasInterests = profileState.value?.interests.isNotEmpty == true;
+      final profile = profileState.value;
+      final hasInterests =
+          profile != null &&
+          validateInterestSelection(profile.interests, profile.animeGenres) ==
+              null;
       if (hasProfile &&
           !hasInterests &&
           state.matchedLocation != '/interests') {

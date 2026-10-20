@@ -50,9 +50,50 @@ const interestCatalog = <InterestCategory>[
     InterestOption('books_mystery', 'Misterio'),
     InterestOption('books_horror', 'Terror'),
   ]),
+  InterestCategory('Anime', [InterestOption('anime', 'Anime')]),
+];
+
+const animeGenreCatalog = <InterestOption>[
+  InterestOption('anime_action', 'Accion'),
+  InterestOption('anime_adventure', 'Aventura'),
+  InterestOption('anime_comedy', 'Comedia'),
+  InterestOption('anime_drama', 'Drama'),
+  InterestOption('anime_fantasy', 'Fantasia'),
+  InterestOption('anime_horror', 'Terror'),
+  InterestOption('anime_isekai', 'Isekai'),
+  InterestOption('anime_mecha', 'Mecha'),
+  InterestOption('anime_mystery', 'Misterio'),
+  InterestOption('anime_romance', 'Romance'),
+  InterestOption('anime_scifi', 'Ciencia ficcion'),
+  InterestOption('anime_slice_of_life', 'Vida cotidiana'),
+  InterestOption('anime_sports', 'Deportes'),
+  InterestOption('anime_supernatural', 'Sobrenatural'),
 ];
 
 final interestLabels = <String, String>{
   for (final category in interestCatalog)
     for (final option in category.options) option.id: option.label,
 };
+
+final animeGenreLabels = <String, String>{
+  for (final option in animeGenreCatalog) option.id: option.label,
+};
+
+String? validateInterestSelection(
+  Iterable<String> interests,
+  Iterable<String> animeGenres,
+) {
+  final selected = interests.toSet();
+  final genres = animeGenres.toSet();
+  if (selected.where(interestLabels.containsKey).length < 3) {
+    return 'Selecciona al menos 3 gustos diferentes.';
+  }
+  if (selected.contains('anime')) {
+    if (genres.where(animeGenreLabels.containsKey).length < 3) {
+      return 'Selecciona al menos 3 generos de anime.';
+    }
+  } else if (genres.isNotEmpty) {
+    return 'Selecciona Anime para guardar sus generos.';
+  }
+  return null;
+}

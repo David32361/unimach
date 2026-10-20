@@ -35,6 +35,7 @@ class ProfileService {
       'description': description.trim(),
       'avatarId': avatarId,
       'interests': <String>[],
+      'animeGenres': <String>[],
       'createdAt': FieldValue.serverTimestamp(),
       'lastActivity': FieldValue.serverTimestamp(),
       'accountStatus': 'active',
@@ -50,6 +51,7 @@ class ProfileService {
       'description': description.trim(),
       'avatarId': avatarId,
       'interests': <String>[],
+      'animeGenres': <String>[],
       'createdAt': FieldValue.serverTimestamp(),
       'updatedAt': FieldValue.serverTimestamp(),
       'accountStatus': 'active',
@@ -64,14 +66,20 @@ class ProfileService {
     await user.updateDisplayName(name.trim());
   }
 
-  Future<void> updateInterests(String uid, List<String> interests) async {
+  Future<void> updateInterests(
+    String uid,
+    List<String> interests,
+    List<String> animeGenres,
+  ) async {
     final batch = _firestore.batch();
     batch.update(_firestore.collection('users').doc(uid), {
       'interests': interests,
+      'animeGenres': animeGenres,
       'lastActivity': FieldValue.serverTimestamp(),
     });
     batch.update(_firestore.collection('publicProfiles').doc(uid), {
       'interests': interests,
+      'animeGenres': animeGenres,
       'updatedAt': FieldValue.serverTimestamp(),
     });
     await batch.commit();
@@ -84,6 +92,7 @@ class ProfileService {
     required String career,
     required String description,
     required List<String> interests,
+    required List<String> animeGenres,
   }) async {
     final privateChanges = {
       'avatarId': avatarId,
@@ -91,6 +100,7 @@ class ProfileService {
       'career': career.trim(),
       'description': description.trim(),
       'interests': interests,
+      'animeGenres': animeGenres,
       'lastActivity': FieldValue.serverTimestamp(),
     };
     final publicChanges = {
@@ -99,6 +109,7 @@ class ProfileService {
       'career': career.trim(),
       'description': description.trim(),
       'interests': interests,
+      'animeGenres': animeGenres,
       'updatedAt': FieldValue.serverTimestamp(),
     };
     final batch = _firestore.batch();
