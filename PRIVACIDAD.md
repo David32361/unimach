@@ -4,10 +4,10 @@ Actualizada el 21 de octubre de 2026. Esta politica describe la aplicacion
 Android UniMatch y su panel administrativo. El responsable del tratamiento es
 **David Martinez Polvadera**; contacto privado:
 **David13dpb0490e@gmail.com**. Domicilio indicado por el responsable:
-**La Vega, Cardonal, Hidalgo, C.P. 42376, Mexico, sin numero exterior (s/n)**.
-**Este documento aun requiere revision legal: falta confirmar la calle o
-referencia suficiente del domicilio y un procedimiento operativo de
-eliminacion definitiva de cuenta y datos.**
+**Barrio Moxthe, La Vega, Cardonal, Hidalgo, C.P. 42376, Mexico; calle sin
+nombre y sin numero exterior (s/n)**. **Este documento aun requiere revision
+legal y un procedimiento operativo de eliminacion definitiva de cuenta y
+datos.**
 
 ## Datos que trata la aplicacion
 
@@ -75,9 +75,8 @@ definitiva todavia requiere desarrollo; la respuesta no debe confundirse con
 la desactivacion logica disponible en Admin. **No incluyas datos personales
 en los issues publicos de GitHub.**
 
-Domicilio del responsable: La Vega, Cardonal, Hidalgo, C.P. 42376, Mexico,
-sin numero exterior (s/n). La calle o referencia suficiente de contacto esta
-pendiente de confirmacion.
+Domicilio del responsable: Barrio Moxthe, La Vega, Cardonal, Hidalgo,
+C.P. 42376, Mexico; calle sin nombre y sin numero exterior (s/n).
 
 Los cambios de esta politica se comunicaran publicando una nueva version en
 esta misma URL y actualizando la fecha de revision. Antes de tratar datos con

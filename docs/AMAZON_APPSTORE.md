@@ -20,9 +20,10 @@ es un APK para Amazon Appstore.
 
 ## Bloqueos antes de solicitar aprobacion
 
-1. Confirmar la calle o referencia suficiente del domicilio del responsable
-   (La Vega, Cardonal, Hidalgo, C.P. 42376, sin numero exterior); completar y
-   revisar la politica. Publicarla en una URL accesible sin iniciar sesion.
+1. Revisar legalmente el aviso integral y validar que el domicilio declarado
+   por el responsable (Barrio Moxthe, La Vega, Cardonal, Hidalgo, C.P. 42376,
+   calle sin nombre y s/n) permita recibir comunicaciones. La politica ya
+   esta publicada en una URL accesible sin iniciar sesion.
 2. Implementar solicitud de **eliminacion definitiva** de cuenta y datos,
    accesible dentro de la app y mediante una pagina web fuera de ella. La
    eliminacion logica actual desde Admin no cumple esa finalidad. Definir los
