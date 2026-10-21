@@ -20,8 +20,8 @@ es un APK para Amazon Appstore.
 
 ## Bloqueos antes de solicitar aprobacion
 
-1. Confirmar la direccion completa del responsable (la localidad es La Vega,
-   Cardonal, Hidalgo); completar y revisar la
+1. Confirmar la calle y el numero exterior del responsable (la localidad es
+   La Vega, Cardonal, Hidalgo, C.P. 42376); completar y revisar la
    politica. Publicarla en una URL accesible sin iniciar sesion.
 2. Implementar solicitud de **eliminacion definitiva** de cuenta y datos,
    accesible dentro de la app y mediante una pagina web fuera de ella. La
