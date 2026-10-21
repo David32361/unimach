@@ -5,6 +5,7 @@ import 'package:unimatch_user/core/validators/auth_validators.dart';
 import 'package:unimatch_user/presentation/features/auth/widgets/auth_feedback.dart';
 import 'package:unimatch_user/presentation/features/auth/widgets/auth_scaffold.dart';
 import 'package:unimatch_user/providers/auth_providers.dart';
+import 'package:unimatch_user/presentation/widgets/privacy_policy_link.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -121,6 +122,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
               ],
             ),
+            const SizedBox(height: 12),
+            const Center(child: PrivacyPolicyLink()),
           ],
         ),
       ),

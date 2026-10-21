@@ -6,8 +6,8 @@ este repositorio.
 
 ## Estado actual
 
-- Version beta: `0.1.0-beta.1+4` en ambos `pubspec.yaml`.
-- Tag `v0.1.0-beta.1` y GitHub Release preliminar para testers. No es una
+- Version beta: `0.1.0-beta.2+5` en ambos `pubspec.yaml`.
+- Tag `v0.1.0-beta.2` y GitHub Release preliminar para testers. No es una
   version estable.
 - Los dos proyectos comparten numero de version mientras se desarrollan como
   una sola linea de producto. El numero despues de `+` es el build number y
@@ -50,7 +50,8 @@ estado con `git status` y `git fetch origin` antes de cada integracion.
 ## Versiones futuras
 
 - Cambios de desarrollo: aumenta `dev.N` y registra el cambio en el changelog.
-- La primera ronda beta usa `0.1.0-beta.1+4`. Una correccion posterior a una
+- La primera ronda beta usa `0.1.0-beta.1+4`; la siguiente usa
+  `0.1.0-beta.2+5`. Una correccion posterior a una
   beta distribuida usa un nuevo tag y artefacto;
   nunca reemplaza el anterior.
 - Reserva `1.0.0` para una version estable aprobada.

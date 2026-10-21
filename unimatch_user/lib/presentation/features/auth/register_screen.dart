@@ -5,6 +5,7 @@ import 'package:unimatch_user/core/validators/auth_validators.dart';
 import 'package:unimatch_user/presentation/features/auth/widgets/auth_feedback.dart';
 import 'package:unimatch_user/presentation/features/auth/widgets/auth_scaffold.dart';
 import 'package:unimatch_user/providers/auth_providers.dart';
+import 'package:unimatch_user/presentation/widgets/privacy_policy_link.dart';
 
 class RegisterScreen extends ConsumerStatefulWidget {
   const RegisterScreen({super.key});
@@ -111,6 +112,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
               icon: const Icon(Icons.arrow_back_rounded),
               label: const Text('Volver al inicio de sesion'),
             ),
+            const Center(child: PrivacyPolicyLink()),
           ],
         ),
       ),

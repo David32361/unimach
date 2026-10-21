@@ -1,0 +1,50 @@
+# Revision para Amazon Appstore
+
+Revision del 20 de octubre de 2026. Estado: **no listo para enviar**. Esta
+auditoria es para la app Android de usuarios; el panel Admin Flutter Web no
+es un APK para Amazon Appstore.
+
+## Comprobado en el proyecto
+
+- Existe una app Android con paquete `com.unimatch.unimatch_user`, permiso de
+  Internet y version nueva `0.1.0-beta.2+5` (`versionCode` 5).
+- El build de lanzamiento usa una clave persistente local que no se sube a
+  Git. Verificar la firma y el APK resultante en cada beta.
+- El acceso a la politica de privacidad aparece en inicio de sesion, registro
+  y perfil. La URL apunta a `PRIVACIDAD.md` de `app_unimach`.
+- La app no vende bienes digitales ni usa compras integradas.
+- El registro de perfil exige una edad declarada de 18 a 99 anos.
+
+## Bloqueos antes de solicitar aprobacion
+
+1. Confirmar la direccion completa del responsable (la localidad es La Vega,
+   Cardonal, Hidalgo); completar y revisar la
+   politica. Publicarla en una URL accesible sin iniciar sesion.
+2. Implementar solicitud de **eliminacion definitiva** de cuenta y datos,
+   accesible dentro de la app y mediante una pagina web fuera de ella. La
+   eliminacion logica actual desde Admin no cumple esa finalidad. Definir los
+   datos que se retienen por seguridad y sus plazos; responder el formulario
+   de eliminacion en Developer Console.
+3. Completar el cuestionario de privacidad de Amazon con los datos reales de
+   Firebase, Google Sign-In, perfiles, chat, reportes y analitica. Marcar que
+   se recogen datos del usuario; no seleccionar "No".
+4. Probar el APK en una tablet Fire real. Fire OS no incluye los servicios de
+   Google habituales; verificar arranque, autenticacion con correo y Google,
+   Firestore, chat y notificaciones. Adaptar o desactivar con claridad las
+   funciones dependientes de Google que fallen. Una compilacion Android
+   correcta por si sola no demuestra compatibilidad Fire.
+5. Preparar la ficha: dos iconos PNG transparentes de 114x114 y 512x512,
+   entre 3 y 10 capturas reales de la app con datos ficticios, descripciones,
+   categoria, paises, audiencia y clasificacion de contenido. Los iconos
+   Android del manifiesto no sustituyen los de la ficha.
+6. Confirmar acceso a una cuenta Amazon Developer y crear la ficha; disponer
+   de credenciales de prueba para revision sin exponerlas en Git.
+
+## Fuentes oficiales
+
+- https://developer.amazon.com/docs/app-submission/submitting-apps-to-amazon-appstore.html
+- https://developer.amazon.com/docs/app-submission/target-app.html
+- https://developer.amazon.com/docs/app-submission/appstore-details.html
+- https://developer.amazon.com/docs/app-submission/appstore-privacy-labels.html
+- https://developer.amazon.com/docs/app-submission/user-account-and-data-deletion.html
+- https://developer.amazon.com/docs/fire-tablets/ft-faq.html

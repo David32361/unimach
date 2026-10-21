@@ -1,10 +1,18 @@
 # UniMatch
 
-Version beta actual: `0.1.0-beta.1+4` en ambas aplicaciones. El APK Android
-para testers esta en [GitHub Releases](https://github.com/David32361/unimach/releases/tag/v0.1.0-beta.1).
+Version beta actual: `0.1.0-beta.2+5` en ambas aplicaciones. El APK Android
+para testers esta en [GitHub Releases](https://github.com/David32361/app_unimach/releases/tag/v0.1.0-beta.2).
+Los comentarios se reciben en [el issue de la beta](https://github.com/David32361/app_unimach/issues/1)
+hasta el **25 de octubre de 2026, 23:59 (America/Mexico_City)**. Indica
+version, modelo del dispositivo, pasos para reproducir y resultado esperado;
+no publiques contrasenas, correos ni capturas con datos personales.
+La [politica de privacidad para beta](PRIVACIDAD.md) esta en revision y la
+[auditoria Amazon Appstore](docs/AMAZON_APPSTORE.md) enumera los bloqueos
+antes de solicitar publicacion en esa tienda.
 Consulta [CHANGELOG.md](CHANGELOG.md)
 y [docs/VERSIONADO.md](docs/VERSIONADO.md) para continuar el versionado.
-Repositorio de codigo: <https://github.com/David32361/unimach>.
+Repositorio de codigo principal: <https://github.com/David32361/unimach>.
+Repositorio para testers: <https://github.com/David32361/app_unimach>.
 La fecha prevista para recibir comentarios de los testers esta en
 [docs/PRUEBAS_BETA.md](docs/PRUEBAS_BETA.md).
 

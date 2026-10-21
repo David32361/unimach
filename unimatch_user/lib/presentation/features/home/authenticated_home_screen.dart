@@ -6,6 +6,7 @@ import 'package:unimatch_user/presentation/features/discovery/discovery_screen.d
 import 'package:unimatch_user/presentation/features/matches/matches_screen.dart';
 import 'package:unimatch_user/presentation/features/messages/messages_screen.dart';
 import 'package:unimatch_user/presentation/widgets/avatar_sprite.dart';
+import 'package:unimatch_user/presentation/widgets/privacy_policy_link.dart';
 import 'package:unimatch_user/providers/auth_providers.dart';
 import 'package:unimatch_user/providers/profile_providers.dart';
 
@@ -131,6 +132,8 @@ class _ProfileOverview extends ConsumerWidget {
               Chip(label: Text(interestLabels[interest] ?? interest)),
           ],
         ),
+        const SizedBox(height: 24),
+        const Center(child: PrivacyPolicyLink()),
       ],
     );
   }

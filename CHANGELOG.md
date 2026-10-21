@@ -9,6 +9,20 @@ Keep a Changelog y las versiones siguen SemVer.
 
 - Documentar los cambios antes de cada nueva version beta.
 
+## [0.1.0-beta.2] - 2026-10-20
+
+### Agregado
+
+- Enlace a la politica de privacidad en acceso, registro y perfil.
+- Borrador de privacidad y revision de requisitos de Amazon Appstore,
+  incluidos los bloqueos de eliminacion de cuenta y compatibilidad Fire OS.
+- Canal de comentarios en el repositorio `app_unimach` para testers.
+
+### Cambiado
+
+- Version Android `0.1.0-beta.2+5`; se mantiene la fecha limite de
+  comentarios del 25 de octubre de 2026.
+
 ## [0.1.0-beta.1] - 2026-10-19
 
 ### Agregado

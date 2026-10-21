@@ -504,7 +504,7 @@ packages:
       path: "../unimatch_admin"
       relative: true
     source: path
-    version: "0.1.0-beta.1+4"
+    version: "0.1.0-beta.2+5"
   url_launcher:
     dependency: "direct main"
     description:

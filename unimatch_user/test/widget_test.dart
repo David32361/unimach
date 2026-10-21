@@ -18,5 +18,6 @@ void main() {
     expect(find.text('Inicia sesion'), findsOneWidget);
     expect(find.text('Continuar con Google'), findsOneWidget);
     expect(find.text('Registrate'), findsOneWidget);
+    expect(find.text('Politica de privacidad'), findsOneWidget);
   });
 }
