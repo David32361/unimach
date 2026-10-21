@@ -8,8 +8,11 @@ es un APK para Amazon Appstore.
 
 - Existe una app Android con paquete `com.unimatch.unimatch_user`, permiso de
   Internet y version nueva `0.1.0-beta.2+5` (`versionCode` 5).
-- El build de lanzamiento usa una clave persistente local que no se sube a
-  Git. Verificar la firma y el APK resultante en cada beta.
+- El APK de lanzamiento se compilo y se verifico con `apksigner`, paquete
+  `com.unimatch.unimatch_user`, `versionCode` 5, `minSdk` 24 y `targetSdk` 36.
+  Su SHA-256 es
+  `2a85a878103fb2ab3a6e743ac1ce817856a7091e049ff698eee9050c47bb40ff`.
+  La clave de firma persistente es local y no se sube a Git.
 - El acceso a la politica de privacidad aparece en inicio de sesion, registro
   y perfil. La URL apunta a `PRIVACIDAD.md` de `app_unimach`.
 - La app no vende bienes digitales ni usa compras integradas.

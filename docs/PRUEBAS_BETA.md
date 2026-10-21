@@ -3,7 +3,7 @@
 ## Version para testers
 
 - APK Android: [UniMatch 0.1.0-beta.2](https://github.com/David32361/app_unimach/releases/tag/v0.1.0-beta.2).
-- SHA-256: consultar el valor publicado en la Release de esta version.
+- SHA-256 del APK: `2a85a878103fb2ab3a6e743ac1ce817856a7091e049ff698eee9050c47bb40ff`.
 - Los tres testers deben instalar **el mismo APK** adjunto a esa Release.
 - Comentarios y problemas: [issue de pruebas beta](https://github.com/David32361/app_unimach/issues/1).
 
