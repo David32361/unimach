@@ -12,7 +12,8 @@ No se alteran fechas de commits ni se atribuyen revisiones a otras personas.
 | `feature/seguridad-correo` | Contraseñas fuertes, verificación y reglas de acceso | [PR #5](https://github.com/David32361/unimach/pull/5) |
 | `fix/interacciones-match` | Likes, estado visible y creación atómica de match/conversación | [PR #6](https://github.com/David32361/unimach/pull/6) |
 | `fix/diseno-ortografia` | Textos, tildes y nombres de universidades | [PR #7](https://github.com/David32361/unimach/pull/7) |
-| `chore/flujo-trabajo` | CI, trazabilidad, plantillas y preparación de versiones | PR de esta entrega |
+| `fix/lectura-conversacion` | Lectura inicial de conversación propia en la transacción | [PR #9](https://github.com/David32361/unimach/pull/9) |
+| `chore/flujo-trabajo` | CI, trazabilidad, plantillas y preparación de versiones | [PR #8](https://github.com/David32361/unimach/pull/8) |
 
 Las ramas se conservan en GitHub como evidencia de esta entrega. Las tareas
 nuevas deben partir de `main` actualizado; no reutilizar una rama ya integrada

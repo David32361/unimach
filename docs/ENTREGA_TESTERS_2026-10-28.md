@@ -18,6 +18,9 @@ Entrega solicitada antes del **28 de octubre de 2026, 22:00**, zona
 - App de usuario: **26 pruebas aprobadas** y análisis estático sin incidencias.
 - Reglas: **3 pruebas aprobadas** en el emulador, incluyendo rechazo a cuentas
   sin verificar, rechazo a match unilateral y creación atómica con reciprocidad.
+- Panel: **1 prueba aprobada** y análisis estático sin incidencias.
+- Funciones: compilación TypeScript aprobada.
+- [Primera ejecución completa de CI aprobada](https://github.com/David32361/unimach/actions/runs/40781547842).
 - Las contraseñas antiguas siguen admitiéndose al iniciar sesión; la política
   nueva se aplica al crear/cambiar contraseñas. Las cuentas antiguas con correo
   sin verificar también deben confirmarlo para acceder a los datos.
@@ -47,6 +50,17 @@ y la entrega usan el servicio de Firebase, como la recuperación de contraseña.
 Las pruebas automatizadas no sustituyen ese recorrido real de buzón y Android.
 La beta anterior no tiene la pantalla de verificación: se debe instalar beta.3
 para continuar con una cuenta sin correo confirmado tras publicar las reglas.
+
+## Artefactos verificados
+
+- APK compilado en release: `versionName=0.1.0-beta.3`, `versionCode=6`.
+- SHA-256: `fa7f3160ebef950c67f996afe4db5fe1a36ba62fcac1f9ea00b8d37586611296`.
+- Firma persistente de beta: SHA-256 `A1:2A:1F:69:BB:42:5C:DA:E6:32:97:47:F4:58:65:F5:C0:FD:02:15:46:6F:A3:91:21:16:F5:7F:F8:2D:A8:C2`.
+- Hosting publicado: página `/email-verified/` comprobada con HTTP 200 y botón
+  de regreso presente; `/.well-known/assetlinks.json` devuelve HTTP 200 y JSON
+  con el paquete `com.unimatch.unimatch_user`.
+- Revisión adicional de la lectura de conversación antes de crear el match:
+  [PR #9](https://github.com/David32361/unimach/pull/9), probado en el emulador.
 
 Fuentes originales conservadas: [Juan Pablo](https://github.com/David32361/app_unimach/blob/main/juan-pbs/README.md),
 [Gael](https://github.com/David32361/app_unimach/blob/main/GaelSilis/README.md),
