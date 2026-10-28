@@ -7,6 +7,7 @@ import 'package:unimatch_user/presentation/features/auth/account_unavailable_scr
 import 'package:unimatch_user/presentation/features/auth/forgot_password_screen.dart';
 import 'package:unimatch_user/presentation/features/auth/login_screen.dart';
 import 'package:unimatch_user/presentation/features/auth/register_screen.dart';
+import 'package:unimatch_user/presentation/features/auth/verify_email_screen.dart';
 import 'package:unimatch_user/presentation/features/home/authenticated_home_screen.dart';
 import 'package:unimatch_user/presentation/features/messages/chat_screen.dart';
 import 'package:unimatch_user/presentation/features/profile/interest_selection_screen.dart';
@@ -23,6 +24,14 @@ final routerProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(path: '/login', builder: (_, _) => const LoginScreen()),
       GoRoute(path: '/register', builder: (_, _) => const RegisterScreen()),
+      GoRoute(
+        path: '/verify-email',
+        builder: (_, _) => const VerifyEmailScreen(),
+      ),
+      GoRoute(
+        path: '/email-verified',
+        builder: (_, _) => const VerifyEmailScreen(),
+      ),
       GoRoute(
         path: '/forgot-password',
         builder: (_, _) => const ForgotPasswordScreen(),
@@ -68,6 +77,13 @@ final routerProvider = Provider<GoRouter>((ref) {
           state.matchedLocation == '/forgot-password';
       if (!signedIn && !public) return '/login';
       if (!signedIn) return null;
+      final verifying =
+          state.matchedLocation == '/verify-email' ||
+          state.matchedLocation == '/email-verified';
+      if (!authState.value!.emailVerified) {
+        return verifying ? null : '/verify-email';
+      }
+      if (verifying) return '/home';
       if (adminAccess.isLoading) return null;
       if (adminAccess.value == true) {
         return state.matchedLocation == '/admin' ? null : '/admin';

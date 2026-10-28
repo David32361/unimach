@@ -25,6 +25,12 @@ class _UniMatchUserAppState extends ConsumerState<UniMatchUserApp>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     final service = ref.read(usageSessionServiceProvider);
     if (state == AppLifecycleState.resumed) {
+      unawaited(
+        ref
+            .read(authRepositoryProvider)
+            .refreshEmailVerification()
+            .catchError((_) => false),
+      );
       final user = ref.read(firebaseAuthProvider).currentUser;
       final profile = ref.read(currentProfileProvider).value;
       if (user != null && profile?.accountStatus == 'active') {

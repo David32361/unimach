@@ -7,7 +7,7 @@ const {
   initializeTestEnvironment,
 } = require('@firebase/rules-unit-testing');
 const {
-  collection, doc, getDocs, limit, orderBy, query, serverTimestamp,
+  collection, doc, getDoc, getDocs, limit, orderBy, query, serverTimestamp,
   setDoc, startAfter, updateDoc, where,
 } = require('firebase/firestore');
 
@@ -22,6 +22,7 @@ test('profile rules require three tastes and three anime genres', async () => {
   try {
     const database = environment.authenticatedContext('alice', {
       email: 'alice@example.com',
+      email_verified: true,
     }).firestore();
     const privateProfile = doc(database, 'users/alice');
     const publicProfile = doc(database, 'publicProfiles/alice');
@@ -86,6 +87,7 @@ test('profile rules require three tastes and three anime genres', async () => {
 
     const legacyDatabase = environment.authenticatedContext('bob', {
       email: 'bob@example.com',
+      email_verified: true,
     }).firestore();
     const legacyCommon = { ...common };
     delete legacyCommon.animeGenres;
@@ -125,6 +127,43 @@ test('profile rules require three tastes and three anime genres', async () => {
         firstPage.docs[0].id === nextPage.docs[0].id) {
       throw new Error('Discovery pagination did not return distinct profiles.');
     }
+  } finally {
+    await environment.cleanup();
+  }
+});
+
+test('unverified identities cannot access profiles or send interactions', async () => {
+  const environment = await initializeTestEnvironment({
+    projectId: 'demo-unimatch-verification',
+    firestore: {
+      rules: readFileSync(resolve(__dirname, '../../firestore.rules'), 'utf8'),
+    },
+  });
+  try {
+    await environment.withSecurityRulesDisabled(async (context) => {
+      await setDoc(doc(context.firestore(), 'users/alice'), {
+        uid: 'alice', accountStatus: 'active', email: 'alice@example.com',
+      });
+      await setDoc(doc(context.firestore(), 'users/bob'), {
+        uid: 'bob', accountStatus: 'active',
+      });
+    });
+    const unverified = environment.authenticatedContext('alice', {
+      email: 'alice@example.com', email_verified: false,
+    }).firestore();
+    await assertFails(getDoc(doc(unverified, 'users/alice')));
+    await assertFails(updateDoc(doc(unverified, 'users/alice'), {
+      emailVerified: true,
+    }));
+    await assertFails(setDoc(doc(unverified, 'likes/alice_bob'), {
+      senderId: 'alice', receiverId: 'bob', createdAt: serverTimestamp(),
+    }));
+    await assertFails(getDocs(query(collection(unverified, 'publicProfiles'),
+      where('accountStatus', '==', 'active'), limit(20))));
+    const verified = environment.authenticatedContext('alice', {
+      email: 'alice@example.com', email_verified: true,
+    }).firestore();
+    await assertSucceeds(getDoc(doc(verified, 'users/alice')));
   } finally {
     await environment.cleanup();
   }

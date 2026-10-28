@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:unimatch_user/core/errors/auth_failure.dart';
 import 'package:unimatch_user/repositories/auth_repository.dart';
 import 'package:unimatch_user/services/auth_service.dart';
 import 'package:unimatch_user/services/notification_service.dart';
@@ -45,7 +46,7 @@ final usageSessionServiceProvider = Provider<UsageSessionService>((ref) {
 
 final notificationRegistrationProvider = Provider<void>((ref) {
   final user = ref.watch(authStateChangesProvider).value;
-  if (user == null) {
+  if (user == null || !user.emailVerified) {
     return;
   }
 
@@ -74,6 +75,20 @@ class AuthController extends AsyncNotifier<void> {
   Future<bool> signIn(String email, String password) {
     return _run(() => ref.read(authRepositoryProvider).signIn(email, password));
   }
+
+  Future<bool> sendEmailVerification() =>
+      _run(ref.read(authRepositoryProvider).sendEmailVerification);
+
+  Future<bool> checkEmailVerification() => _run(() async {
+    final verified = await ref
+        .read(authRepositoryProvider)
+        .refreshEmailVerification();
+    if (!verified) {
+      throw const AuthFailure(
+        'Tu correo aún no está confirmado. Abre el enlace recibido y vuelve a intentarlo.',
+      );
+    }
+  });
 
   Future<bool> signInWithGoogle() {
     return _run(ref.read(authRepositoryProvider).signInWithGoogle);
