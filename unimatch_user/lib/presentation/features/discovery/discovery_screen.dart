@@ -197,7 +197,13 @@ class _ProfileCandidate extends ConsumerWidget {
     } else if (matched == false && context.mounted) {
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
-        ..showSnackBar(const SnackBar(content: Text('Interes guardado.')));
+        ..showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Interés enviado. Puedes verlo en Matches → Intereses enviados. El match requiere interés mutuo.',
+            ),
+          ),
+        );
     }
   }
 
