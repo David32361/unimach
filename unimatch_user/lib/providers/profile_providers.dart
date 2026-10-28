@@ -22,7 +22,7 @@ final profileRepositoryProvider = Provider<ProfileRepository>((ref) {
 final currentProfileProvider = StreamProvider<UserProfile?>((ref) {
   final authState = ref.watch(authStateChangesProvider);
   final user = authState.value;
-  if (user == null) return Stream.value(null);
+  if (user == null || !user.emailVerified) return Stream.value(null);
   return ref.watch(profileRepositoryProvider).watchProfile(user.uid);
 });
 

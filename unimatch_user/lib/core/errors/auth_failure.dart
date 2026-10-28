@@ -10,7 +10,12 @@ class AuthFailure implements Exception {
   factory AuthFailure.fromFirebase(FirebaseAuthException error) {
     return AuthFailure(switch (error.code) {
       'invalid-email' => 'El correo no es valido.',
-      'weak-password' => 'La contrasena debe tener al menos 6 caracteres.',
+      'weak-password' || 'password-does-not-meet-requirements' =>
+        'Usa de 8 a 128 caracteres, mayúscula, minúscula, número y símbolo.',
+      'expired-action-code' => 'El enlace venció. Solicita uno nuevo.',
+      'invalid-action-code' => 'El enlace no es válido o ya se utilizó.',
+      'unauthorized-continue-uri' || 'invalid-continue-uri' =>
+        'No se pudo enviar el enlace. Intenta más tarde.',
       'email-already-in-use' => 'Ya existe una cuenta con este correo.',
       'invalid-credential' ||
       'wrong-password' ||

@@ -78,7 +78,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ),
                 ),
               ),
-              validator: AuthValidators.password,
+              validator: AuthValidators.loginPassword,
             ),
             Align(
               alignment: Alignment.centerRight,

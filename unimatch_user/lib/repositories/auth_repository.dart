@@ -45,4 +45,20 @@ class AuthRepository {
   }
 
   Future<void> signOut() => _service.signOut();
+
+  Future<void> sendEmailVerification() async {
+    try {
+      await _service.sendEmailVerification();
+    } on FirebaseAuthException catch (error) {
+      throw AuthFailure.fromFirebase(error);
+    }
+  }
+
+  Future<bool> refreshEmailVerification() async {
+    try {
+      return await _service.refreshEmailVerification();
+    } on FirebaseAuthException catch (error) {
+      throw AuthFailure.fromFirebase(error);
+    }
+  }
 }

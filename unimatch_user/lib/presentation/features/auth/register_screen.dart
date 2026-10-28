@@ -42,7 +42,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     listenForAuthErrors(context, ref);
     return AuthScaffold(
       title: 'Crea tu cuenta',
-      subtitle: 'Tu perfil se completa despues del registro.',
+      subtitle: 'Confirma tu correo y después completa tu perfil.',
       child: Form(
         key: _formKey,
         child: Column(
@@ -65,6 +65,9 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
               autofillHints: const [AutofillHints.newPassword],
               decoration: InputDecoration(
                 labelText: 'Contrasena',
+                helperText:
+                    'De 8 a 128 caracteres: mayúscula, minúscula, número y símbolo.',
+                helperMaxLines: 3,
                 prefixIcon: const Icon(Icons.lock_outline_rounded),
                 suffixIcon: IconButton(
                   tooltip: _obscurePassword
