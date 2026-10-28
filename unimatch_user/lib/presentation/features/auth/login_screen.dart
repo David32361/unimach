@@ -39,7 +39,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final auth = ref.watch(authControllerProvider);
     listenForAuthErrors(context, ref);
     return AuthScaffold(
-      title: 'Inicia sesion',
+      title: 'Inicia sesión',
       subtitle: 'Conecta con personas que comparten tus intereses.',
       child: Form(
         key: _formKey,
@@ -63,12 +63,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               autofillHints: const [AutofillHints.password],
               onFieldSubmitted: (_) => auth.isLoading ? null : _submit(),
               decoration: InputDecoration(
-                labelText: 'Contrasena',
+                labelText: 'Contraseña',
                 prefixIcon: const Icon(Icons.lock_outline_rounded),
                 suffixIcon: IconButton(
                   tooltip: _obscurePassword
-                      ? 'Mostrar contrasena'
-                      : 'Ocultar contrasena',
+                      ? 'Mostrar contraseña'
+                      : 'Ocultar contraseña',
                   onPressed: () =>
                       setState(() => _obscurePassword = !_obscurePassword),
                   icon: Icon(
@@ -86,7 +86,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 onPressed: auth.isLoading
                     ? null
                     : () => context.push('/forgot-password'),
-                child: const Text('Olvide mi contrasena'),
+                child: const Text('Olvidé mi contraseña'),
               ),
             ),
             const SizedBox(height: 8),
@@ -98,7 +98,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
                   : const Icon(Icons.login_rounded),
-              label: const Text('Iniciar sesion'),
+              label: const Text('Iniciar sesión'),
             ),
             const SizedBox(height: 14),
             OutlinedButton.icon(
@@ -113,12 +113,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               alignment: WrapAlignment.center,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
-                const Text('¿Aun no tienes cuenta?'),
+                const Text('¿Aún no tienes cuenta?'),
                 TextButton(
                   onPressed: auth.isLoading
                       ? null
                       : () => context.push('/register'),
-                  child: const Text('Registrate'),
+                  child: const Text('Regístrate'),
                 ),
               ],
             ),

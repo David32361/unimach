@@ -8,13 +8,13 @@ class DiscoveryFailure implements Exception {
   factory DiscoveryFailure.fromFirebase(FirebaseException error) {
     return switch (error.code) {
       'permission-denied' => const DiscoveryFailure(
-        'No fue posible registrar el interes. Verifica que ambas cuentas esten activas.',
+        'No fue posible registrar el interés. Verifica que ambas cuentas estén activas.',
       ),
       'unavailable' => const DiscoveryFailure(
-        'Firebase no esta disponible. Revisa tu conexion.',
+        'Firebase no está disponible. Revisa tu conexión.',
       ),
       _ => const DiscoveryFailure(
-        'No fue posible completar esta accion. Intenta de nuevo.',
+        'No fue posible completar esta acción. Intenta de nuevo.',
       ),
     };
   }

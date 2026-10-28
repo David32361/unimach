@@ -25,7 +25,7 @@ class InterestPicker extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Gustos (${interests.length}, minimo 3)', style: titleStyle),
+        Text('Gustos (${interests.length}, mínimo 3)', style: titleStyle),
         const SizedBox(height: 12),
         for (final category in interestCatalog) ...[
           Text(category.name, style: titleStyle),
@@ -47,7 +47,7 @@ class InterestPicker extends StatelessWidget {
           if (category.name == 'Anime' && interests.contains('anime')) ...[
             const SizedBox(height: 14),
             Text(
-              'Generos de anime (${animeGenres.length}, minimo 3)',
+              'Géneros de anime (${animeGenres.length}, mínimo 3)',
               style: titleStyle,
             ),
             const SizedBox(height: 8),

@@ -64,15 +64,15 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
               obscureText: _obscurePassword,
               autofillHints: const [AutofillHints.newPassword],
               decoration: InputDecoration(
-                labelText: 'Contrasena',
+                labelText: 'Contraseña',
                 helperText:
                     'De 8 a 128 caracteres: mayúscula, minúscula, número y símbolo.',
                 helperMaxLines: 3,
                 prefixIcon: const Icon(Icons.lock_outline_rounded),
                 suffixIcon: IconButton(
                   tooltip: _obscurePassword
-                      ? 'Mostrar contrasena'
-                      : 'Ocultar contrasena',
+                      ? 'Mostrar contraseña'
+                      : 'Ocultar contraseña',
                   onPressed: () =>
                       setState(() => _obscurePassword = !_obscurePassword),
                   icon: Icon(
@@ -90,7 +90,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
               obscureText: _obscurePassword,
               onFieldSubmitted: (_) => auth.isLoading ? null : _submit(),
               decoration: const InputDecoration(
-                labelText: 'Confirma la contrasena',
+                labelText: 'Confirma la contraseña',
                 prefixIcon: Icon(Icons.lock_reset_rounded),
               ),
               validator: (value) => AuthValidators.confirmPassword(
@@ -113,7 +113,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
             TextButton.icon(
               onPressed: auth.isLoading ? null : () => context.pop(),
               icon: const Icon(Icons.arrow_back_rounded),
-              label: const Text('Volver al inicio de sesion'),
+              label: const Text('Volver al inicio de sesión'),
             ),
             const Center(child: PrivacyPolicyLink()),
           ],

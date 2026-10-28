@@ -19,13 +19,13 @@ class PrivacyPolicyLink extends StatelessWidget {
         if (!opened && context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('No se pudo abrir la politica de privacidad.'),
+              content: Text('No se pudo abrir la política de privacidad.'),
             ),
           );
         }
       },
       icon: const Icon(Icons.privacy_tip_outlined),
-      label: const Text('Politica de privacidad'),
+      label: const Text('Política de privacidad'),
     );
   }
 }

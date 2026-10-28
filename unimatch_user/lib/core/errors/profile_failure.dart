@@ -11,7 +11,7 @@ class ProfileFailure implements Exception {
         'No tienes permiso para guardar este perfil.',
       ),
       'unavailable' => const ProfileFailure(
-        'Firebase no esta disponible. Revisa tu conexion.',
+        'Firebase no está disponible. Revisa tu conexión.',
       ),
       _ => const ProfileFailure(
         'No fue posible guardar el perfil. Intenta de nuevo.',

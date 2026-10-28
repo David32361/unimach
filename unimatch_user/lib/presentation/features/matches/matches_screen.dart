@@ -45,7 +45,7 @@ class MatchesScreen extends ConsumerWidget {
         if (items.isEmpty) {
           return const _MatchesEmpty(
             icon: Icons.favorite_border_rounded,
-            title: 'Aun no tienes matches',
+            title: 'Aún no tienes matches',
           );
         }
         return ListView.separated(

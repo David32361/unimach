@@ -45,7 +45,7 @@ class _AuthenticatedHomeScreenState
                   icon: const Icon(Icons.edit_outlined),
                 ),
                 IconButton(
-                  tooltip: 'Cerrar sesion',
+                  tooltip: 'Cerrar sesión',
                   onPressed: operation.isLoading
                       ? null
                       : ref.read(authControllerProvider.notifier).signOut,
@@ -114,7 +114,7 @@ class _ProfileOverview extends ConsumerWidget {
         Text(user?.email ?? '', textAlign: TextAlign.center),
         const SizedBox(height: 6),
         Text(
-          '${profile.age} anos | ${profile.gender}',
+          '${profile.age} años | ${profile.gender}',
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 4),

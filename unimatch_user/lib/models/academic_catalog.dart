@@ -18,6 +18,22 @@ class AcademicOption {
   }
 }
 
+// Normalize catalog names and the specific legacy typo reported by testers.
+// Preserve custom institutions rather than silently mapping them elsewhere.
+String canonicalUniversityName(String value) {
+  final corrected = value
+      .trim()
+      .replaceAll(
+        RegExp(r'\btexnol[oó]gica\b', caseSensitive: false),
+        'Tecnológica',
+      )
+      .replaceAll(
+        RegExp(r'\btexnol[oó]gico\b', caseSensitive: false),
+        'Tecnológico',
+      );
+  return findAcademicOption(hidalgoUniversities, corrected)?.name ?? corrected;
+}
+
 String normalizeAcademicSearch(String value) => value
     .trim()
     .toLowerCase()
@@ -141,7 +157,7 @@ const hidalgoUniversities = <AcademicOption>[
   ),
 ];
 
-// Catalogo general: la oferta concreta depende de cada institucion.
+// Catálogo general: la oferta concreta depende de cada institucion.
 const careerCatalog = <AcademicOption>[
   AcademicOption('Administración', acronym: 'ADM'),
   AcademicOption('Arquitectura', acronym: 'ARQ'),

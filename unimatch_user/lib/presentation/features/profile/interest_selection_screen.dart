@@ -65,7 +65,7 @@ class _InterestSelectionScreenState
         title: const Text('Tus intereses'),
         actions: [
           IconButton(
-            tooltip: 'Cerrar sesion',
+            tooltip: 'Cerrar sesión',
             onPressed: operation.isLoading
                 ? null
                 : ref.read(authControllerProvider.notifier).signOut,
