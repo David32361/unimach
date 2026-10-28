@@ -80,12 +80,14 @@ class DiscoveryService {
     final match = _firestore.collection('matches').doc(matchId);
     final conversation = _firestore.collection('conversations').doc(matchId);
 
-    final matched = await _firestore.runTransaction((transaction) async {
+    return _firestore.runTransaction((transaction) async {
       final ownSnapshot = await transaction.get(ownLike);
       final reciprocalSnapshot = await transaction.get(reciprocalLike);
       DocumentSnapshot<Map<String, dynamic>>? matchSnapshot;
+      DocumentSnapshot<Map<String, dynamic>>? conversationSnapshot;
       if (reciprocalSnapshot.exists) {
         matchSnapshot = await transaction.get(match);
+        conversationSnapshot = await transaction.get(conversation);
       }
 
       if (!ownSnapshot.exists) {
@@ -105,13 +107,8 @@ class DiscoveryService {
           'status': 'active',
         });
       }
-      return reciprocalSnapshot.exists;
-    });
-
-    if (matched) {
-      final conversationSnapshot = await conversation.get();
-      if (!conversationSnapshot.exists) {
-        await conversation.set({
+      if (reciprocalSnapshot.exists && conversationSnapshot?.exists != true) {
+        transaction.set(conversation, {
           'conversationId': matchId,
           'matchId': matchId,
           'participants': sortedUsers,
@@ -121,8 +118,7 @@ class DiscoveryService {
           'createdAt': FieldValue.serverTimestamp(),
         });
       }
-    }
-
-    return matched;
+      return reciprocalSnapshot.exists;
+    });
   }
 }

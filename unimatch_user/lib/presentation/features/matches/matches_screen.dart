@@ -4,12 +4,34 @@ import 'package:go_router/go_router.dart';
 import 'package:unimatch_user/presentation/widgets/avatar_sprite.dart';
 import 'package:unimatch_user/providers/auth_providers.dart';
 import 'package:unimatch_user/providers/matches_providers.dart';
+import 'package:unimatch_user/presentation/features/matches/sent_interests_tab.dart';
 
 class MatchesScreen extends ConsumerWidget {
   const MatchesScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    return DefaultTabController(
+      length: 2,
+      child: Column(
+        children: [
+          const TabBar(
+            tabs: [
+              Tab(text: 'Matches'),
+              Tab(text: 'Intereses enviados'),
+            ],
+          ),
+          Expanded(
+            child: TabBarView(
+              children: [_buildMatches(context, ref), const SentInterestsTab()],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMatches(BuildContext context, WidgetRef ref) {
     final matches = ref.watch(matchesProvider);
     final currentUid = ref.watch(firebaseAuthProvider).currentUser?.uid ?? '';
 
@@ -50,7 +72,9 @@ class MatchesScreen extends ConsumerWidget {
                       person.name,
                       style: const TextStyle(fontWeight: FontWeight.w700),
                     ),
-                    subtitle: Text('${person.university}\n${person.career}'),
+                    subtitle: Text(
+                      'Interés mutuo · ${person.university}\n${person.career}',
+                    ),
                     isThreeLine: true,
                     trailing: const Icon(Icons.chat_bubble_outline_rounded),
                     onTap: () => context.push('/chat/${match.id}/$otherUid'),
