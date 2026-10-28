@@ -182,6 +182,10 @@ test('only mutual likes can atomically create a match and its conversation', asy
     });
     const alice = environment.authenticatedContext('alice', {email_verified: true}).firestore();
     const bob = environment.authenticatedContext('bob', {email_verified: true}).firestore();
+    // A client transaction reads the absent conversation before any writes.
+    await assertSucceeds(getDoc(doc(bob, 'conversations/alice_bob')));
+    const outsider = environment.authenticatedContext('mallory', {email_verified: true}).firestore();
+    await assertFails(getDoc(doc(outsider, 'conversations/alice_bob')));
     const match = {
       matchId: 'alice_bob', user1: 'alice', user2: 'bob',
       userIds: ['alice', 'bob'], status: 'active', createdAt: serverTimestamp(),
