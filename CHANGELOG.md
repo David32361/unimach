@@ -5,9 +5,33 @@ Keep a Changelog y las versiones siguen SemVer.
 
 ## [Unreleased]
 
-### Pendiente
+Sin cambios pendientes de registrar.
 
-- Documentar los cambios antes de cada nueva version beta.
+## [0.1.0-beta.3] - 2026-10-28
+
+### Seguridad
+
+- Contraseñas de 8–128 caracteres con mayúscula, minúscula, número y símbolo,
+  también exigidas en Firebase; las contraseñas antiguas siguen admitiéndose al entrar.
+- Confirmación del correo mediante enlace Firebase antes de completar el perfil
+  o acceder a datos; reenvío con espera, comprobación al volver y Android App Links.
+- Reglas Firestore que exigen correo verificado.
+
+### Corregido
+
+- «años» en Perfil, acentos y textos de acceso, recuperación, gustos y mensajes.
+- Normalización de «Texnologica» y nombres de instituciones al mostrar y guardar.
+- Creación atómica de like recíproco, match y conversación, sin sobrescribir chats.
+
+### Agregado
+
+- Pestaña de intereses enviados y explicación de la reciprocidad necesaria para match.
+- Ramas por responsabilidad, PRs, merges explícitos, plantilla y CI con pruebas
+  de ambas apps, compilación de funciones y reglas en emulador.
+- Evidencia de atención a los testers y versión `0.1.0-beta.3+6`.
+
+El reporte de perfiles faltantes se excluyó por indicación del responsable;
+se conserva la consulta y paginación de Descubrir.
 
 ## [0.1.0-beta.2] - 2026-10-20
 

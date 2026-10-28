@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.unimatch.unimatch_user",
+      "sha256_cert_fingerprints": [
+        "A1:2A:1F:69:BB:42:5C:DA:E6:32:97:47:F4:58:65:F5:C0:FD:02:15:46:6F:A3:91:21:16:F5:7F:F8:2D:A8:C2"
+      ]
+    }
+  }
+]

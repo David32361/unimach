@@ -6,14 +6,16 @@ este repositorio.
 
 ## Estado actual
 
-- Version beta: `0.1.0-beta.2+5` en ambos `pubspec.yaml`.
-- Tag `v0.1.0-beta.2` y GitHub Release preliminar para testers. No es una
+- Version beta: `0.1.0-beta.3+6` en ambos `pubspec.yaml`.
+- Tag `v0.1.0-beta.3` y GitHub Release preliminar para testers. No es una
   version estable.
 - Los dos proyectos comparten numero de version mientras se desarrollan como
   una sola linea de producto. El numero despues de `+` es el build number y
   debe aumentar cuando se genere una nueva compilacion Android distribuible.
 
 ## Flujo de trabajo individual
+
+El procedimiento completo y las ramas reales están en [FLUJO_GITHUB.md](FLUJO_GITHUB.md).
 
 `main` contiene los cambios integrados que pasaron las comprobaciones locales.
 Para cada tarea, crea una rama corta desde `main`:

@@ -1,11 +1,11 @@
 # UniMatch
 
-Version beta actual: `0.1.0-beta.2+5` en ambas aplicaciones. El APK Android
-para testers esta en [GitHub Releases](https://github.com/David32361/app_unimach/releases/tag/v0.1.0-beta.2).
-Los comentarios se reciben en [el issue de la beta](https://github.com/David32361/app_unimach/issues/1)
-hasta el **25 de octubre de 2026, 23:59 (America/Mexico_City)**. Indica
-version, modelo del dispositivo, pasos para reproducir y resultado esperado;
-no publiques contrasenas, correos ni capturas con datos personales.
+Versión beta actual: `0.1.0-beta.3+6` en ambas aplicaciones. El APK Android
+para testers está en [GitHub Releases](https://github.com/David32361/app_unimach/releases/tag/v0.1.0-beta.3).
+Las correcciones de los reportes recibidos hasta el 25 de octubre se describen
+en [la entrega del 28 de octubre](docs/ENTREGA_TESTERS_2026-10-28.md).
+El flujo de ramas, pruebas, PRs y publicación está en [FLUJO_GITHUB.md](docs/FLUJO_GITHUB.md).
+No publiques contraseñas, correos ni capturas con datos personales.
 La [politica de privacidad para beta](PRIVACIDAD.md) esta en revision y la
 [auditoria Amazon Appstore](docs/AMAZON_APPSTORE.md) enumera los bloqueos
 antes de solicitar publicacion en esa tienda.
@@ -31,6 +31,8 @@ subidas de fotografias.
 ### Aplicacion de usuario
 
 - Registro e inicio de sesion con correo y Google.
+- Contraseñas fuertes en registros nuevos y confirmación por enlace de Firebase.
+- El correo debe estar verificado antes de acceder a perfiles, matches y mensajes.
 - Redireccion automatica al modulo administrativo cuando el token contiene el
   custom claim `admin: true`.
 - Recuperacion de contrasena por enlace de correo, acceso con Google y cierre
@@ -44,6 +46,7 @@ subidas de fotografias.
 - Doce avatares uniformes de gatos y perros.
 - Descubrir perfiles en un feed desplazable, indicar interes o descartarlos.
 - Creacion automatica de Match cuando el interes es mutuo.
+- Intereses enviados visibles hasta que se convierten en un match.
 - Lista de Matches y conversaciones en tiempo real.
 - Mensajes leidos y contador de pendientes.
 - Bloqueo y reporte de usuarios.
