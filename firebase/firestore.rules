@@ -404,9 +404,9 @@ service cloud.firestore {
           request.resource.data.participants[1]
         )
         && request.resource.data.participants.hasAll(
-          get(/databases/$(database)/documents/matches/$(conversationId)).data.userIds
+          getAfter(/databases/$(database)/documents/matches/$(conversationId)).data.userIds
         )
-        && get(/databases/$(database)/documents/matches/$(conversationId)).data.userIds.hasAll(
+        && getAfter(/databases/$(database)/documents/matches/$(conversationId)).data.userIds.hasAll(
           request.resource.data.participants
         )
         && getAfter(/databases/$(database)/documents/matches/$(conversationId)).data.status == 'active'

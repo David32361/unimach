@@ -8,7 +8,7 @@ const {
 } = require('@firebase/rules-unit-testing');
 const {
   collection, doc, getDoc, getDocs, limit, orderBy, query, serverTimestamp,
-  setDoc, startAfter, updateDoc, where,
+  setDoc, startAfter, updateDoc, where, writeBatch,
 } = require('firebase/firestore');
 
 test('profile rules require three tastes and three anime genres', async () => {
@@ -164,6 +164,50 @@ test('unverified identities cannot access profiles or send interactions', async 
       email: 'alice@example.com', email_verified: true,
     }).firestore();
     await assertSucceeds(getDoc(doc(verified, 'users/alice')));
+  } finally {
+    await environment.cleanup();
+  }
+});
+
+test('only mutual likes can atomically create a match and its conversation', async () => {
+  const environment = await initializeTestEnvironment({
+    projectId: 'demo-unimatch-matches',
+    firestore: {rules: readFileSync(resolve(__dirname, '../../firestore.rules'), 'utf8')},
+  });
+  try {
+    await environment.withSecurityRulesDisabled(async (context) => {
+      for (const uid of ['alice', 'bob', 'mallory']) {
+        await setDoc(doc(context.firestore(), `users/${uid}`), {accountStatus: 'active'});
+      }
+    });
+    const alice = environment.authenticatedContext('alice', {email_verified: true}).firestore();
+    const bob = environment.authenticatedContext('bob', {email_verified: true}).firestore();
+    const match = {
+      matchId: 'alice_bob', user1: 'alice', user2: 'bob',
+      userIds: ['alice', 'bob'], status: 'active', createdAt: serverTimestamp(),
+    };
+    const conversation = {
+      conversationId: 'alice_bob', matchId: 'alice_bob', participants: ['alice', 'bob'],
+      lastMessage: '', lastSenderId: '', lastMessageAt: serverTimestamp(),
+      createdAt: serverTimestamp(),
+    };
+    await assertSucceeds(setDoc(doc(alice, 'likes/alice_bob'), {
+      senderId: 'alice', receiverId: 'bob', createdAt: serverTimestamp(),
+    }));
+    await assertFails(setDoc(doc(alice, 'matches/alice_bob'), match));
+    const batch = writeBatch(bob);
+    batch.set(doc(bob, 'likes/bob_alice'), {
+      senderId: 'bob', receiverId: 'alice', createdAt: serverTimestamp(),
+    });
+    batch.set(doc(bob, 'matches/alice_bob'), match);
+    batch.set(doc(bob, 'conversations/alice_bob'), conversation);
+    await assertSucceeds(batch.commit());
+    await assertSucceeds(getDoc(doc(alice, 'conversations/alice_bob')));
+    await assertFails(updateDoc(doc(alice, 'conversations/alice_bob'), {
+      participants: ['alice', 'mallory'],
+    }));
+    const mallory = environment.authenticatedContext('mallory', {email_verified: true}).firestore();
+    await assertFails(getDoc(doc(mallory, 'conversations/alice_bob')));
   } finally {
     await environment.cleanup();
   }
