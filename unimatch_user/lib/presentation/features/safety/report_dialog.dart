@@ -65,7 +65,7 @@ class _ReportDialogState extends State<_ReportDialog> {
               maxLength: 500,
               maxLines: 4,
               decoration: const InputDecoration(
-                labelText: 'Descripcion',
+                labelText: 'Descripción',
                 alignLabelWithHint: true,
               ),
             ),

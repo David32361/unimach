@@ -12,7 +12,7 @@ class AccountUnavailableScreen extends ConsumerWidget {
     final (title, message, icon) = switch (status) {
       'suspended' => (
         'Cuenta suspendida',
-        'Tu cuenta esta suspendida temporalmente. Contacta al administrador si necesitas ayuda.',
+        'Tu cuenta está suspendida temporalmente. Contacta al administrador si necesitas ayuda.',
         Icons.pause_circle_outline,
       ),
       'banned' => (
@@ -60,7 +60,7 @@ class AccountUnavailableScreen extends ConsumerWidget {
                   onPressed: () =>
                       ref.read(authControllerProvider.notifier).signOut(),
                   icon: const Icon(Icons.logout),
-                  label: const Text('Cerrar sesion'),
+                  label: const Text('Cerrar sesión'),
                 ),
               ],
             ),

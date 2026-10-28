@@ -136,7 +136,7 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                 maxLength: 300,
                 maxLines: 4,
                 decoration: const InputDecoration(
-                  labelText: 'Descripcion personal',
+                  labelText: 'Descripción personal',
                   alignLabelWithHint: true,
                 ),
                 validator: _required,

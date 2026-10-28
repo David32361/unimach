@@ -37,7 +37,7 @@ class AuthService {
       final idToken = googleUser.authentication.idToken;
       if (idToken == null) {
         throw const AuthFailure(
-          'Google no devolvio una credencial valida.',
+          'Google no devolvió una credencial válida.',
           code: 'missing-google-id-token',
         );
       }

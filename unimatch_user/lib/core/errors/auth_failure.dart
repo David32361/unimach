@@ -9,7 +9,7 @@ class AuthFailure implements Exception {
 
   factory AuthFailure.fromFirebase(FirebaseAuthException error) {
     return AuthFailure(switch (error.code) {
-      'invalid-email' => 'El correo no es valido.',
+      'invalid-email' => 'El correo no es válido.',
       'weak-password' || 'password-does-not-meet-requirements' =>
         'Usa de 8 a 128 caracteres, mayúscula, minúscula, número y símbolo.',
       'expired-action-code' => 'El enlace venció. Solicita uno nuevo.',
@@ -19,23 +19,23 @@ class AuthFailure implements Exception {
       'email-already-in-use' => 'Ya existe una cuenta con este correo.',
       'invalid-credential' ||
       'wrong-password' ||
-      'user-not-found' => 'Correo o contrasena incorrectos.',
+      'user-not-found' => 'Correo o contraseña incorrectos.',
       'user-disabled' => 'Esta cuenta se encuentra deshabilitada.',
-      'too-many-requests' => 'Demasiados intentos. Intenta mas tarde.',
+      'too-many-requests' => 'Demasiados intentos. Intenta más tarde.',
       'network-request-failed' => 'No fue posible conectarse a Firebase.',
-      _ => 'No fue posible completar la autenticacion.',
+      _ => 'No fue posible completar la autenticación.',
     }, code: error.code);
   }
 
   factory AuthFailure.fromGoogle(GoogleSignInException error) {
     if (error.code == GoogleSignInExceptionCode.canceled) {
       return const AuthFailure(
-        'Inicio de sesion con Google cancelado.',
+        'Inicio de sesión con Google cancelado.',
         code: 'canceled',
       );
     }
     return const AuthFailure(
-      'No fue posible iniciar sesion con Google.',
+      'No fue posible iniciar sesión con Google.',
       code: 'google-sign-in-failed',
     );
   }

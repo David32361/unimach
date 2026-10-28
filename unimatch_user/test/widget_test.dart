@@ -15,9 +15,9 @@ void main() {
     );
     await tester.pump();
 
-    expect(find.text('Inicia sesion'), findsOneWidget);
+    expect(find.text('Inicia sesión'), findsOneWidget);
     expect(find.text('Continuar con Google'), findsOneWidget);
-    expect(find.text('Registrate'), findsOneWidget);
-    expect(find.text('Politica de privacidad'), findsOneWidget);
+    expect(find.text('Regístrate'), findsOneWidget);
+    expect(find.text('Política de privacidad'), findsOneWidget);
   });
 }

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:unimatch_user/models/academic_catalog.dart';
 
 class PublicProfile {
   const PublicProfile({
@@ -34,7 +35,7 @@ class PublicProfile {
       name: data['name'] as String? ?? '',
       age: data['age'] as int? ?? 0,
       gender: data['gender'] as String? ?? '',
-      university: data['university'] as String? ?? '',
+      university: canonicalUniversityName(data['university'] as String? ?? ''),
       career: data['career'] as String? ?? '',
       description: data['description'] as String? ?? '',
       avatarId: data['avatarId'] as int? ?? 0,

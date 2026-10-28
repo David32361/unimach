@@ -41,7 +41,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
     listenForAuthErrors(context, ref);
     return AuthScaffold(
       title: 'Recupera tu acceso',
-      subtitle: 'Restablece tu contrasena por correo o entra con Google.',
+      subtitle: 'Restablece tu contraseña por correo o entra con Google.',
       child: Form(
         key: _formKey,
         child: Column(
@@ -62,8 +62,8 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
             ),
             const SizedBox(height: 12),
             Text(
-              'Si esta direccion tiene una cuenta con contrasena, '
-              'recibiras un enlace. Necesitas acceso a ese correo.',
+              'Si esta dirección tiene una cuenta con contraseña, '
+              'recibirás un enlace. Necesitas acceso a ese correo.',
               style: Theme.of(context).textTheme.bodySmall,
             ),
             if (_sent) ...[
@@ -76,8 +76,8 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                   Expanded(
                     child: Text(
                       'Solicitud recibida. Revisa tu bandeja y spam. '
-                      'Si no controlas ese correo, no podras restablecer '
-                      'la contrasena desde UniMatch.',
+                      'Si no controlas ese correo, no podrás restablecer '
+                      'la contraseña desde UniMatch.',
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ),
@@ -97,8 +97,8 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
             ),
             const SizedBox(height: 20),
             Text(
-              'Si creaste tu cuenta con Google, inicia sesion con Google. '
-              'Si olvidaste tu clave de Google, recuperala con Google.',
+              'Si creaste tu cuenta con Google, inicia sesión con Google. '
+              'Si olvidaste tu clave de Google, recupérala con Google.',
               style: Theme.of(context).textTheme.bodySmall,
             ),
             const SizedBox(height: 10),

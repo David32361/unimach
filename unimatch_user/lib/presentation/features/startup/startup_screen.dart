@@ -29,7 +29,7 @@ class StartupScreen extends ConsumerWidget {
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    'Aplicacion movil para estudiantes universitarios.',
+                    'Aplicación móvil para estudiantes universitarios.',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(height: 28),
@@ -38,8 +38,8 @@ class StartupScreen extends ConsumerWidget {
                         ? 'Firebase conectado'
                         : 'Firebase pendiente de configurar',
                     details: firebaseStatus.initialized
-                        ? 'El arranque base esta listo.'
-                        : 'Agrega las credenciales reales con FlutterFire antes de probar autenticacion.',
+                        ? 'El arranque base está listo.'
+                        : 'Agrega las credenciales reales con FlutterFire antes de probar autenticación.',
                     icon: firebaseStatus.initialized
                         ? Icons.check_circle_outline
                         : Icons.info_outline,

@@ -69,7 +69,7 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
 
   String? _validateAge(String? value) {
     final age = int.tryParse(value ?? '');
-    if (age == null) return 'Escribe una edad valida.';
+    if (age == null) return 'Escribe una edad válida.';
     if (age < 18 || age > 99) return 'La edad debe estar entre 18 y 99.';
     return null;
   }
@@ -90,7 +90,7 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
         title: const Text('Completa tu perfil'),
         actions: [
           IconButton(
-            tooltip: 'Cerrar sesion',
+            tooltip: 'Cerrar sesión',
             onPressed: operation.isLoading
                 ? null
                 : ref.read(authControllerProvider.notifier).signOut,
@@ -170,7 +170,7 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
                     DropdownButtonFormField<String>(
                       initialValue: _gender,
                       decoration: const InputDecoration(
-                        labelText: 'Genero',
+                        labelText: 'Género',
                         prefixIcon: Icon(Icons.people_outline_rounded),
                       ),
                       items: _genders
@@ -185,7 +185,7 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
                           ? null
                           : (value) => setState(() => _gender = value),
                       validator: (value) =>
-                          value == null ? 'Selecciona una opcion.' : null,
+                          value == null ? 'Selecciona una opción.' : null,
                     ),
                     const SizedBox(height: 14),
                     SearchableAcademicField(
@@ -210,11 +210,11 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
                       maxLines: 4,
                       textCapitalization: TextCapitalization.sentences,
                       decoration: const InputDecoration(
-                        labelText: 'Descripcion personal',
+                        labelText: 'Descripción personal',
                         alignLabelWithHint: true,
                         prefixIcon: Icon(Icons.notes_rounded),
                       ),
-                      validator: (value) => _required(value, 'una descripcion'),
+                      validator: (value) => _required(value, 'una descripción'),
                     ),
                     const SizedBox(height: 10),
                     FilledButton.icon(

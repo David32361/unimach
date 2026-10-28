@@ -150,7 +150,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
         ),
         actions: [
           PopupMenuButton<String>(
-            tooltip: 'Mas opciones',
+            tooltip: 'Más opciones',
             enabled: !safetyOperation.isLoading,
             onSelected: (value) {
               if (value == 'report') _report();

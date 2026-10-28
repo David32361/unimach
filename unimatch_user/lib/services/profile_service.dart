@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:unimatch_user/models/user_profile.dart';
+import 'package:unimatch_user/models/academic_catalog.dart';
 
 class ProfileService {
   ProfileService(this._firestore);
@@ -30,7 +31,7 @@ class ProfileService {
       'email': user.email,
       'age': age,
       'gender': gender,
-      'university': university.trim(),
+      'university': canonicalUniversityName(university),
       'career': career.trim(),
       'description': description.trim(),
       'avatarId': avatarId,
@@ -46,7 +47,7 @@ class ProfileService {
       'name': name.trim(),
       'age': age,
       'gender': gender,
-      'university': university.trim(),
+      'university': canonicalUniversityName(university),
       'career': career.trim(),
       'description': description.trim(),
       'avatarId': avatarId,
@@ -96,7 +97,7 @@ class ProfileService {
   }) async {
     final privateChanges = {
       'avatarId': avatarId,
-      'university': university.trim(),
+      'university': canonicalUniversityName(university),
       'career': career.trim(),
       'description': description.trim(),
       'interests': interests,
@@ -105,7 +106,7 @@ class ProfileService {
     };
     final publicChanges = {
       'avatarId': avatarId,
-      'university': university.trim(),
+      'university': canonicalUniversityName(university),
       'career': career.trim(),
       'description': description.trim(),
       'interests': interests,

@@ -271,7 +271,7 @@ class _ProfileCandidate extends ConsumerWidget {
             Align(
               alignment: Alignment.centerRight,
               child: PopupMenuButton<String>(
-                tooltip: 'Mas opciones',
+                tooltip: 'Más opciones',
                 enabled: !safetyOperation.isLoading,
                 onSelected: (value) {
                   if (value == 'report') _report(context, ref);
