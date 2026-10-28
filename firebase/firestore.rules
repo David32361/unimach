@@ -377,7 +377,14 @@ service cloud.firestore {
     }
 
     match /conversations/{conversationId} {
-      allow get: if isAdmin() || matchParticipant(conversationId);
+      // Transactions must be able to check whether their own conversation
+      // exists before creating the match and conversation in the same commit.
+      allow get: if isAdmin() || matchParticipant(conversationId)
+        || (signedIn()
+          && activeUser(request.auth.uid)
+          && !exists(/databases/$(database)/documents/conversations/$(conversationId))
+          && (conversationId.matches('^' + request.auth.uid + '_[^_]+$')
+            || conversationId.matches('^[^_]+_' + request.auth.uid + '$')));
       allow list: if isAdmin()
         || (signedIn()
           && activeUser(request.auth.uid)
