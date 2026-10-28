@@ -1,0 +1,67 @@
+name: Validar cambios
+
+on:
+  push:
+    branches: [main, 'feature/**', 'fix/**', 'chore/**']
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  flutter:
+    name: Flutter · analizar y probar
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar Flutter 3.44.1
+        run: |
+          git clone --depth 1 --branch 3.44.1 https://github.com/flutter/flutter.git "$RUNNER_TEMP/flutter"
+          echo "$RUNNER_TEMP/flutter/bin" >> "$GITHUB_PATH"
+      - name: Preparar configuración de pruebas sin credenciales
+        run: python3 scripts/prepare_ci_config.py
+      - name: Instalar dependencias del panel
+        working-directory: unimatch_admin
+        run: flutter pub get
+      - name: Validar panel
+        working-directory: unimatch_admin
+        run: |
+          flutter analyze --no-pub
+          flutter test --no-pub
+      - name: Instalar dependencias de usuario
+        working-directory: unimatch_user
+        run: flutter pub get
+      - name: Validar aplicación de usuario
+        working-directory: unimatch_user
+        run: |
+          flutter analyze --no-pub
+          flutter test --no-pub
+  firebase:
+    name: Firebase · compilar y probar reglas
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: firebase/functions/package-lock.json
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Instalar y compilar funciones
+        working-directory: firebase/functions
+        run: |
+          npm ci
+          npm run build
+      - name: Probar reglas sin tocar producción
+        run: npx --yes firebase-tools@15.30.2 emulators:exec --only firestore --project demo-unimatch 'npm --prefix firebase/functions run test:rules'
