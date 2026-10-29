@@ -8,6 +8,8 @@
   "scripts": {
     "build": "tsc",
     "test:rules": "node --test test/firestore.rules.test.cjs",
+    "test:accounts": "node --test test/account-management.test.cjs",
+    "test:emulator": "npm run test:rules && npm run test:accounts",
     "lint": "eslint --ext .js,.ts src",
     "serve": "npm run build && firebase emulators:start --only functions",
     "deploy": "npm run build && firebase deploy --only functions"

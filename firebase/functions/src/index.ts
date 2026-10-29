@@ -11,6 +11,8 @@ import {getMessaging} from 'firebase-admin/messaging';
 initializeApp();
 setGlobalOptions({region: 'us-central1'});
 
+export {deleteOwnAccount, manageAccount, purgeDeletedAccount} from './account_management';
+
 const db = getFirestore();
 
 async function sendToUser(
@@ -156,10 +158,17 @@ export const syncAuthAccountStatus = onDocumentUpdated(
       return;
     }
 
-    const disabled = after !== 'active';
-    await getAuth().updateUser(event.params.userId, {disabled});
-    if (disabled) {
-      await getAuth().revokeRefreshTokens(event.params.userId);
+    // Firestore triggers may arrive out of order. Never re-enable an account
+    // based on an older "active" event after it was deleted or banned.
+    const latest = await db.collection('users').doc(event.params.userId).get();
+    const disabled = !latest.exists || latest.data()?.accountStatus !== 'active';
+    try {
+      await getAuth().updateUser(event.params.userId, {disabled});
+      if (disabled) {
+        await getAuth().revokeRefreshTokens(event.params.userId);
+      }
+    } catch (error) {
+      if ((error as {code?: string}).code !== 'auth/user-not-found') throw error;
     }
   },
 );
