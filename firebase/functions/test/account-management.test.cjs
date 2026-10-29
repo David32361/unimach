@@ -69,6 +69,7 @@ test('deletion requires recent authentication and explicit valid input', () => {
   assert.equal(requireRecentAuth({uid:'alice', token:{auth_time:now/1000}}, now), 'alice');
   assert.throws(() => validateStatus('owner'), /Estado/);
   assert.throws(() => validateReason(''), /motivo/);
+  assert.equal(validateReason(' Spam '), 'Spam');
 });
 
 test('a user cannot delete somebody else or an administrator', async () => {

@@ -552,7 +552,7 @@ service cloud.firestore {
         && request.resource.data.status in ['active', 'suspended', 'banned']
         && request.resource.data.status == getAfter(/databases/$(database)/documents/users/$(userId)).data.accountStatus
         && request.resource.data.reason is string
-        && request.resource.data.reason.size() >= 5
+        && request.resource.data.reason.size() >= 1
         && request.resource.data.reason.size() <= 300
         && request.resource.data.message is string
         && request.resource.data.message.size() <= 2000

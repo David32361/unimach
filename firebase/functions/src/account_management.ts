@@ -15,8 +15,8 @@ export function validateStatus(value: unknown): Status {
 }
 
 export function validateReason(value: unknown): string {
-  if (typeof value !== 'string' || value.trim().length < 5 || value.trim().length > 300) {
-    throw new HttpsError('invalid-argument', 'Indica un motivo de entre 5 y 300 caracteres.');
+  if (typeof value !== 'string' || value.trim().length < 1 || value.trim().length > 300) {
+    throw new HttpsError('invalid-argument', 'Indica un motivo de entre 1 y 300 caracteres.');
   }
   return value.trim();
 }
