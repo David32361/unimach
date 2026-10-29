@@ -20,6 +20,18 @@ Las ramas se conservan en GitHub como evidencia de esta entrega. Las tareas
 nuevas deben partir de `main` actualizado; no reutilizar una rama ya integrada
 sin actualizarla primero. Se prefieren ramas cortas y PRs con un propósito.
 
+## Cierre de la entrega
+
+- `feature/eliminacion-cuentas`: [PR #11](https://github.com/David32361/unimach/pull/11).
+- `fix/motivos-moderacion`: [PR #12](https://github.com/David32361/unimach/pull/12).
+- `release/v1.0.0`: preparación de la versión final y su documentación.
+- [Tag v1.0.0](https://github.com/David32361/unimach/tree/v1.0.0): identifica el código entregado.
+- [Release de código](https://github.com/David32361/unimach/releases/tag/v1.0.0).
+- [Release con APK](https://github.com/David32361/app_unimach/releases/tag/v1.0.0).
+
+El cierre conserva el historial y las betas. No archiva los repositorios ni activa
+servicios pendientes. Las limitaciones se indican en las notas de la entrega.
+
 ## Pasos reproducibles
 
 ```powershell

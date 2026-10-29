@@ -1,4 +1,4 @@
-# Gestión de cuentas y soporte — beta.5
+# Gestión de cuentas y soporte — entrega 1.0.0
 
 Contacto mostrado como texto: **unimatch7@gmail.com**. Sirve para quejas,
 sugerencias, solicitudes de eliminación y apelaciones. No es el remitente de

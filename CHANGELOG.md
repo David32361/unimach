@@ -7,6 +7,20 @@ Keep a Changelog y las versiones siguen SemVer.
 
 Sin cambios pendientes de registrar.
 
+## [1.0.0] - 2026-10-29
+
+### Entrega final
+
+- Cierre solicitado del proyecto mediante tag anotado y Release estable `v1.0.0`.
+- Versión `1.0.0+9` en usuario y panel; APK firmado con la clave persistente.
+- Consolida las mejoras de seguridad, verificación por correo, interacciones,
+  ortografía, logo, soporte y apelaciones de las betas anteriores.
+- Incluye la corrección de servidor para motivos breves de moderación como «Spam».
+- Se conserva desactivado el borrado automático hasta habilitar y validar el
+  backend en Blaze. La solicitud manual y el contacto sí están disponibles.
+- No se habilitaron correos personalizados de sanción, facturación ni publicación
+  en Amazon Appstore. Una Release estable de GitHub no activa esos servicios.
+
 ## [0.1.0-beta.5] - 2026-10-29
 
 ### Agregado
