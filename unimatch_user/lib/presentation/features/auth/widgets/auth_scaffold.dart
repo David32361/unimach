@@ -26,17 +26,11 @@ class AuthScaffold extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Container(
-                        width: 46,
-                        height: 46,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primary,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: const Icon(
-                          Icons.favorite_rounded,
-                          color: Colors.white,
-                        ),
+                      Image.asset(
+                        'assets/branding/unimatch_logo.png',
+                        width: 64,
+                        height: 64,
+                        semanticLabel: 'Logo de UniMatch',
                       ),
                       const SizedBox(width: 12),
                       Text(

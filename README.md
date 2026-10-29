@@ -1,7 +1,8 @@
 # UniMatch
 
-Versión beta actual: `0.1.0-beta.3+6` en ambas aplicaciones. El APK Android
-para testers está en [GitHub Releases](https://github.com/David32361/app_unimach/releases/tag/v0.1.0-beta.3).
+Versión beta actual: `0.1.0-beta.4+7` en ambas aplicaciones. El APK Android
+para testers está en [GitHub Releases](https://github.com/David32361/app_unimach/releases/tag/v0.1.0-beta.4).
+La identidad visual y el logo están en [branding/](branding/README.md).
 Las correcciones de los reportes recibidos hasta el 25 de octubre se describen
 en [la entrega del 28 de octubre](docs/ENTREGA_TESTERS_2026-10-28.md).
 El flujo de ramas, pruebas, PRs y publicación está en [FLUJO_GITHUB.md](docs/FLUJO_GITHUB.md).

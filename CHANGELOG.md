@@ -7,6 +7,21 @@ Keep a Changelog y las versiones siguen SemVer.
 
 Sin cambios pendientes de registrar.
 
+## [0.1.0-beta.4] - 2026-10-29
+
+### Agregado
+
+- Logo propio de UniMatch en las pantallas de acceso, registro, recuperación
+  y confirmación de correo; también en el panel administrativo y la página
+  de regreso desde el correo.
+- Icono Android en cinco densidades, icono adaptativo y monocromático temático.
+- Favicons e iconos de instalación web con la misma identidad.
+- Original PNG transparente y script para exportar tamaños de forma reproducible.
+
+### Cambiado
+
+- Versión `0.1.0-beta.4+7`, con la misma firma Android de las betas anteriores.
+
 ## [0.1.0-beta.3] - 2026-10-28
 
 ### Seguridad
