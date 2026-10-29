@@ -6,9 +6,9 @@ este repositorio.
 
 ## Estado actual
 
-- Version beta: `0.1.0-beta.5+8` en ambos `pubspec.yaml`.
-- Tag `v0.1.0-beta.5` y GitHub Release preliminar para testers. No es una
-  version estable.
+- Entrega final: `1.0.0+9` en ambos `pubspec.yaml`.
+- Tag anotado `v1.0.0` y GitHub Release estable, solicitados para cerrar la entrega.
+  El alcance y las funciones pendientes constan en `ENTREGA_FINAL_1.0.0.md`.
 - Los dos proyectos comparten numero de version mientras se desarrollan como
   una sola linea de producto. El numero despues de `+` es el build number y
   debe aumentar cuando se genere una nueva compilacion Android distribuible.

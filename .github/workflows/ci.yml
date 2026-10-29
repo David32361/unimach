@@ -2,7 +2,7 @@ name: Validar cambios
 
 on:
   push:
-    branches: [main, 'feature/**', 'fix/**', 'chore/**']
+    branches: [main, 'feature/**', 'fix/**', 'chore/**', 'release/**']
   pull_request:
     branches: [main]
   workflow_dispatch:
