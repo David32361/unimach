@@ -54,17 +54,24 @@ class _AdminLoginScreenState extends ConsumerState<AdminLoginScreen> {
                     padding: const EdgeInsets.all(48),
                     child: ConstrainedBox(
                       constraints: const BoxConstraints(maxWidth: 460),
-                      child: const Column(
+                      child: Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Icon(
-                            Icons.favorite,
-                            size: 52,
-                            color: Color(0xFFF9A65A),
+                          Container(
+                            width: 96,
+                            height: 96,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFFFF8FA),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Image.asset(
+                              'assets/branding/unimatch_logo.png',
+                              semanticLabel: 'Logo de UniMatch',
+                            ),
                           ),
-                          SizedBox(height: 24),
-                          Text(
+                          const SizedBox(height: 24),
+                          const Text(
                             'UniMatch Admin',
                             style: TextStyle(
                               color: Colors.white,
@@ -72,8 +79,8 @@ class _AdminLoginScreenState extends ConsumerState<AdminLoginScreen> {
                               fontWeight: FontWeight.w800,
                             ),
                           ),
-                          SizedBox(height: 12),
-                          Text(
+                          const SizedBox(height: 12),
+                          const Text(
                             'Gestion y moderacion de la comunidad universitaria.',
                             style: TextStyle(
                               color: Color(0xFFD7E4EC),
@@ -100,9 +107,11 @@ class _AdminLoginScreenState extends ConsumerState<AdminLoginScreen> {
                       children: [
                         Row(
                           children: [
-                            const Icon(
-                              Icons.favorite,
-                              color: Color(0xFFE26177),
+                            Image.asset(
+                              'assets/branding/unimatch_logo.png',
+                              width: 48,
+                              height: 48,
+                              semanticLabel: 'Logo de UniMatch',
                             ),
                             const SizedBox(width: 8),
                             Text(

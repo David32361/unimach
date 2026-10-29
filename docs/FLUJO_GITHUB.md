@@ -14,6 +14,7 @@ No se alteran fechas de commits ni se atribuyen revisiones a otras personas.
 | `fix/diseno-ortografia` | Textos, tildes y nombres de universidades | [PR #7](https://github.com/David32361/unimach/pull/7) |
 | `fix/lectura-conversacion` | Lectura inicial de conversación propia en la transacción | [PR #9](https://github.com/David32361/unimach/pull/9) |
 | `chore/flujo-trabajo` | CI, trazabilidad, plantillas y preparación de versiones | [PR #8](https://github.com/David32361/unimach/pull/8) |
+| `feature/logo-unimatch` | Logo, iconos Android y marca compartida en las apps | [PR #10](https://github.com/David32361/unimach/pull/10) |
 
 Las ramas se conservan en GitHub como evidencia de esta entrega. Las tareas
 nuevas deben partir de `main` actualizado; no reutilizar una rama ya integrada
