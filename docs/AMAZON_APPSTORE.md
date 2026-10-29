@@ -24,11 +24,12 @@ es un APK para Amazon Appstore.
    por el responsable (Barrio Moxthe, La Vega, Cardonal, Hidalgo, C.P. 42376,
    calle sin nombre y s/n) permita recibir comunicaciones. La politica ya
    esta publicada en una URL accesible sin iniciar sesion.
-2. Implementar solicitud de **eliminacion definitiva** de cuenta y datos,
-   accesible dentro de la app y mediante una pagina web fuera de ella. La
-   eliminacion logica actual desde Admin no cumple esa finalidad. Definir los
-   datos que se retienen por seguridad y sus plazos; responder el formulario
-   de eliminacion en Developer Console.
+2. Activar y validar la **eliminación definitiva**. La beta.5 ofrece instrucciones
+   de solicitud en la app y en `/account-deletion/`; el backend está preparado y
+   probado en emulador, pero no desplegado porque el proyecto sigue en Spark.
+   Ver [GESTION_CUENTAS.md](GESTION_CUENTAS.md). Validar la atención manual,
+   los plazos de conservación y respuesta antes de declarar esta función operativa
+   en Developer Console.
 3. Completar el cuestionario de privacidad de Amazon con los datos reales de
    Firebase, Google Sign-In, perfiles, chat, reportes y analitica. Marcar que
    se recogen datos del usuario; no seleccionar "No".

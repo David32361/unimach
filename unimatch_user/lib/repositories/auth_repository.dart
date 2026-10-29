@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:unimatch_user/core/errors/auth_failure.dart';
 import 'package:unimatch_user/services/auth_service.dart';
 
@@ -45,6 +46,26 @@ class AuthRepository {
   }
 
   Future<void> signOut() => _service.signOut();
+
+  Future<void> deleteOwnAccount({
+    String? password,
+    bool withGoogle = false,
+  }) async {
+    try {
+      await _service.deleteOwnAccount(
+        password: password,
+        withGoogle: withGoogle,
+      );
+    } on FirebaseAuthException catch (error) {
+      throw AuthFailure.fromFirebase(error);
+    } on FirebaseFunctionsException catch (error) {
+      throw AuthFailure(
+        error.message ??
+            'No se pudo solicitar la eliminación. Intenta de nuevo.',
+        code: error.code,
+      );
+    }
+  }
 
   Future<void> sendEmailVerification() async {
     try {

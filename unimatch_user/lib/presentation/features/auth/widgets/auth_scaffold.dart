@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:unimatch_admin/presentation/widgets/support_contact.dart';
 
 class AuthScaffold extends StatelessWidget {
   const AuthScaffold({
@@ -51,6 +52,8 @@ class AuthScaffold extends StatelessWidget {
                   Text(subtitle, style: Theme.of(context).textTheme.bodyLarge),
                   const SizedBox(height: 28),
                   child,
+                  const SizedBox(height: 20),
+                  const SupportContact(),
                 ],
               ),
             ),

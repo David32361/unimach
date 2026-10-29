@@ -5,6 +5,8 @@ import 'package:unimatch_admin/models/admin_user.dart';
 import 'package:unimatch_admin/presentation/widgets/admin_page.dart';
 import 'package:unimatch_admin/presentation/widgets/avatar_sprite.dart';
 import 'package:unimatch_admin/providers/admin_providers.dart';
+import 'package:unimatch_admin/core/support.dart';
+import 'package:unimatch_admin/presentation/widgets/support_contact.dart';
 
 class UsersScreen extends ConsumerStatefulWidget {
   const UsersScreen({super.key});
@@ -51,6 +53,7 @@ class _UsersScreenState extends ConsumerState<UsersScreen> {
               SizedBox(
                 width: 180,
                 child: DropdownButtonFormField<String>(
+                  isExpanded: true,
                   initialValue: _status,
                   decoration: const InputDecoration(labelText: 'Estado'),
                   items: const [
@@ -124,6 +127,7 @@ class _UsersScreenState extends ConsumerState<UsersScreen> {
               SizedBox(
                 width: 200,
                 child: DropdownButtonFormField<int>(
+                  isExpanded: true,
                   initialValue: _registrationDays,
                   decoration: const InputDecoration(labelText: 'Registro'),
                   items: const [
@@ -139,6 +143,7 @@ class _UsersScreenState extends ConsumerState<UsersScreen> {
               SizedBox(
                 width: 210,
                 child: DropdownButtonFormField<int>(
+                  isExpanded: true,
                   initialValue: _activityDays,
                   decoration: const InputDecoration(labelText: 'Actividad'),
                   items: const [
@@ -163,6 +168,7 @@ class _UsersScreenState extends ConsumerState<UsersScreen> {
               SizedBox(
                 width: 190,
                 child: DropdownButtonFormField<String>(
+                  isExpanded: true,
                   initialValue: _order,
                   decoration: const InputDecoration(labelText: 'Orden'),
                   items: const [
@@ -262,37 +268,53 @@ class _UsersScreenState extends ConsumerState<UsersScreen> {
       builder: (context) => StatefulBuilder(
         builder: (context, setDialogState) => AlertDialog(
           title: Text('Administrar a ${user.name}'),
-          content: SizedBox(
-            width: 440,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                DropdownButtonFormField<String>(
-                  initialValue: selected,
-                  decoration: const InputDecoration(labelText: 'Nuevo estado'),
-                  items: const [
-                    DropdownMenuItem(value: 'active', child: Text('Activo')),
-                    DropdownMenuItem(
-                      value: 'suspended',
-                      child: Text('Suspendido'),
+          content: SingleChildScrollView(
+            child: SizedBox(
+              width: 440,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  DropdownButtonFormField<String>(
+                    isExpanded: true,
+                    initialValue: selected,
+                    decoration: const InputDecoration(
+                      labelText: 'Nuevo estado',
                     ),
-                    DropdownMenuItem(value: 'banned', child: Text('Baneado')),
-                    DropdownMenuItem(
-                      value: 'deleted',
-                      child: Text('Eliminado'),
+                    items: const [
+                      DropdownMenuItem(value: 'active', child: Text('Activo')),
+                      DropdownMenuItem(
+                        value: 'suspended',
+                        child: Text('Suspendido'),
+                      ),
+                      DropdownMenuItem(value: 'banned', child: Text('Baneado')),
+                      DropdownMenuItem(
+                        value: 'deleted',
+                        enabled: accountManagementBackendEnabled,
+                        child: Text('Eliminar definitivamente'),
+                      ),
+                    ],
+                    onChanged: (value) =>
+                        setDialogState(() => selected = value ?? selected),
+                  ),
+                  const SizedBox(height: 16),
+                  TextField(
+                    controller: reasonController,
+                    maxLength: 300,
+                    maxLines: 3,
+                    decoration: const InputDecoration(labelText: 'Motivo'),
+                  ),
+                  const SizedBox(height: 12),
+                  const Text(
+                    'El motivo será visible para la persona afectada. No incluyas datos de terceros ni contraseñas.',
+                  ),
+                  if (!accountManagementBackendEnabled)
+                    const Text(
+                      'La eliminación definitiva está pendiente de activar el servicio de cuentas.',
                     ),
-                  ],
-                  onChanged: (value) =>
-                      setDialogState(() => selected = value ?? selected),
-                ),
-                const SizedBox(height: 16),
-                TextField(
-                  controller: reasonController,
-                  maxLength: 300,
-                  maxLines: 3,
-                  decoration: const InputDecoration(labelText: 'Motivo'),
-                ),
-              ],
+                  const SizedBox(height: 12),
+                  const SupportContact(),
+                ],
+              ),
             ),
           ),
           actions: [
@@ -303,7 +325,7 @@ class _UsersScreenState extends ConsumerState<UsersScreen> {
             FilledButton(
               onPressed: () {
                 final reason = reasonController.text.trim();
-                if (reason.isNotEmpty && selected != user.accountStatus) {
+                if (reason.length >= 5 && selected != user.accountStatus) {
                   Navigator.pop(context, (selected, reason));
                 }
               },
@@ -315,6 +337,10 @@ class _UsersScreenState extends ConsumerState<UsersScreen> {
     );
     reasonController.dispose();
     if (result == null || !mounted) return;
+    if (result.$1 == 'deleted') {
+      final confirmed = await _confirmPermanentDeletion(user);
+      if (!confirmed || !mounted) return;
+    }
     try {
       final adminId = ref.read(firebaseAuthProvider).currentUser!.uid;
       await ref
@@ -340,6 +366,100 @@ class _UsersScreenState extends ConsumerState<UsersScreen> {
           ),
         );
       }
+    }
+  }
+
+  Future<bool> _confirmPermanentDeletion(AdminUser user) async {
+    final confirmation = TextEditingController();
+    final password = TextEditingController();
+    final form = GlobalKey<FormState>();
+    final currentUser = ref.read(firebaseAuthProvider).currentUser;
+    final needsPassword =
+        currentUser?.providerData.any(
+          (provider) => provider.providerId == 'password',
+        ) ==
+        true;
+    final accepted = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Eliminar cuenta definitivamente'),
+        content: SingleChildScrollView(
+          child: Form(
+            key: form,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Se borrará el acceso, perfil, sesiones e interacciones de ${user.name}, incluidas sus conversaciones compartidas. Los datos borrados no pueden recuperarse.',
+                ),
+                TextFormField(
+                  controller: confirmation,
+                  decoration: const InputDecoration(
+                    labelText: 'Escribe ELIMINAR',
+                  ),
+                  validator: (value) => value?.trim() == 'ELIMINAR'
+                      ? null
+                      : 'Escribe ELIMINAR para confirmar.',
+                ),
+                if (needsPassword)
+                  TextFormField(
+                    controller: password,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      labelText: 'Tu contraseña de administrador',
+                    ),
+                    validator: (value) => value == null || value.isEmpty
+                        ? 'Confirma tu contraseña.'
+                        : null,
+                  ),
+                if (!needsPassword)
+                  const Text(
+                    'Para confirmar debes haber iniciado sesión en los últimos cinco minutos.',
+                  ),
+              ],
+            ),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Cancelar'),
+          ),
+          FilledButton(
+            onPressed: () {
+              if (form.currentState!.validate()) Navigator.pop(context, true);
+            },
+            child: const Text('Eliminar definitivamente'),
+          ),
+        ],
+      ),
+    );
+    try {
+      if (accepted != true) return false;
+      if (needsPassword && currentUser?.email != null) {
+        await currentUser!.reauthenticateWithCredential(
+          EmailAuthProvider.credential(
+            email: currentUser.email!,
+            password: password.text,
+          ),
+        );
+        await currentUser.getIdToken(true);
+      }
+      return true;
+    } on FirebaseAuthException catch (error) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              error.message ?? 'No se pudo confirmar tu identidad.',
+            ),
+          ),
+        );
+      }
+      return false;
+    } finally {
+      confirmation.dispose();
+      password.dispose();
     }
   }
 }

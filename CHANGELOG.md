@@ -7,6 +7,26 @@ Keep a Changelog y las versiones siguen SemVer.
 
 Sin cambios pendientes de registrar.
 
+## [0.1.0-beta.5] - 2026-10-29
+
+### Agregado
+
+- Contacto de soporte y apelaciones: unimatch7@gmail.com, como texto seleccionable.
+- Pantalla para solicitar eliminación desde perfil, verificación y cuenta sancionada;
+  página pública con instrucciones para personas sin acceso a la app.
+- Motivo privado de la suspensión o baneo e instrucciones para apelar.
+- Backend de eliminación propia y administrativa con confirmación de identidad,
+  borrado de datos relacionados, reintentos y pruebas con cuentas ficticias.
+
+### Disponibilidad
+
+- El borrado automático está desactivado: el proyecto actual usa Spark sin
+  facturación y no permite desplegar Cloud Functions. Esta beta ofrece la vía
+  de solicitud manual, sin afirmar que el borrado ya se haya ejecutado.
+- Los avisos de moderación se muestran dentro de la app. Firebase Authentication
+  no ofrece correos personalizados de sanción mediante su remitente nativo.
+- Versión 0.1.0-beta.5+8. No se borraron cuentas reales durante las pruebas.
+
 ## [0.1.0-beta.4] - 2026-10-29
 
 ### Agregado

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:unimatch_user/presentation/features/auth/widgets/auth_feedback.dart';
 import 'package:unimatch_user/presentation/features/auth/widgets/auth_scaffold.dart';
 import 'package:unimatch_user/providers/auth_providers.dart';
@@ -117,6 +118,12 @@ class _VerifyEmailScreenState extends ConsumerState<VerifyEmailScreen> {
                 ? null
                 : ref.read(authControllerProvider.notifier).signOut,
             child: const Text('Usar otra cuenta'),
+          ),
+          TextButton(
+            onPressed: operation.isLoading
+                ? null
+                : () => context.push('/account/delete'),
+            child: const Text('Eliminar mi cuenta'),
           ),
         ],
       ),
