@@ -48,7 +48,8 @@ Véanse [gestión de cuentas](GESTION_CUENTAS.md) y
 - [Release e instalador](https://github.com/David32361/app_unimach/releases/tag/v1.0.0).
 
 En cada repositorio abre **Releases → UniMatch 1.0.0**. Para el instalador, entra
-al repositorio `app_unimach`, abre **Assets** y descarga `UniMatch-1.0.0.apk`.
+al repositorio `app_unimach`, abre **Assets** y elige el APK para tu arquitectura: `UniMatch-1.0.0-arm64-v8a.apk`,
+`UniMatch-1.0.0-armeabi-v7a.apk` o `UniMatch-1.0.0-x86_64.apk`.
 Para el tag, abre el selector de ramas de la pestaña **Code**, cambia a **Tags**
 y selecciona `v1.0.0`. El tag también se ve en el encabezado de la Release.
 
@@ -58,3 +59,8 @@ La entrega parte del código integrado con análisis y pruebas de Flutter, prueb
 de reglas y backend en emulador y CI aprobados. El cierre se valida de nuevo en
 el PR de versión. Antes de publicar el APK se comprueban versión, firma y SHA-256;
 el hash final se registra en las notas del repositorio de distribución.
+
+Los instaladores por arquitectura son más pequeños y evitan el corte de conexión
+al subir el APK universal. Todos llevan versión 1.0.0, código 9 y la misma firma.
+ARM64 corresponde a Android ARM de 64 bits; armeabi-v7a a ARM de 32 bits;
+x86_64 a Android para esa arquitectura, como algunos emuladores.
