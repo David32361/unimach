@@ -10,6 +10,9 @@
     }
   ],
   "fieldOverrides": [
+    {"collectionGroup": "accountDeletionJobs", "fieldPath": "expiresAt", "ttl": true, "indexes": []},
+    {"collectionGroup": "accountNotices", "fieldPath": "expiresAt", "ttl": true, "indexes": []},
+    {"collectionGroup": "adminActions", "fieldPath": "expiresAt", "ttl": true, "indexes": []},
     {
       "collectionGroup": "messages",
       "fieldPath": "timestamp",

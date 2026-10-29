@@ -9,6 +9,7 @@ import 'package:unimatch_user/presentation/widgets/avatar_sprite.dart';
 import 'package:unimatch_user/presentation/widgets/privacy_policy_link.dart';
 import 'package:unimatch_user/providers/auth_providers.dart';
 import 'package:unimatch_user/providers/profile_providers.dart';
+import 'package:unimatch_admin/presentation/widgets/support_contact.dart';
 
 class AuthenticatedHomeScreen extends ConsumerStatefulWidget {
   const AuthenticatedHomeScreen({super.key});
@@ -134,6 +135,14 @@ class _ProfileOverview extends ConsumerWidget {
         ),
         const SizedBox(height: 24),
         const Center(child: PrivacyPolicyLink()),
+        const SizedBox(height: 20),
+        const SupportContact(),
+        const SizedBox(height: 16),
+        TextButton.icon(
+          onPressed: () => context.push('/account/delete'),
+          icon: const Icon(Icons.person_remove_outlined),
+          label: const Text('Eliminar mi cuenta'),
+        ),
       ],
     );
   }

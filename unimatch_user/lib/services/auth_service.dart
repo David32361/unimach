@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:unimatch_user/core/errors/auth_failure.dart';
 import 'package:unimatch_user/core/validators/auth_validators.dart';
+import 'package:unimatch_admin/core/support.dart';
 
 class AuthService {
   AuthService(this._auth);
@@ -88,11 +90,62 @@ class AuthService {
 
   Future<bool> refreshEmailVerification() async {
     if (_auth.currentUser == null) return false;
-    await _auth.currentUser!.reload();
+    try {
+      await _auth.currentUser!.reload();
+    } on FirebaseAuthException catch (error) {
+      if ([
+        'user-disabled',
+        'user-not-found',
+        'invalid-user-token',
+        'user-token-expired',
+      ].contains(error.code)) {
+        await _auth.signOut();
+        return false;
+      }
+      rethrow;
+    }
     final user = _auth.currentUser;
     if (user == null) return false;
     await user.getIdToken(true);
     return user.emailVerified;
+  }
+
+  Future<void> deleteOwnAccount({
+    String? password,
+    bool withGoogle = false,
+  }) async {
+    if (!accountManagementBackendEnabled) {
+      throw const AuthFailure(
+        'La eliminación automática aún no está disponible. Contacta a unimatch7@gmail.com.',
+      );
+    }
+    final user = _auth.currentUser;
+    if (user == null) throw const AuthFailure('Inicia sesión de nuevo.');
+    if (withGoogle) {
+      await _ensureGoogleInitialized();
+      final googleUser = await _googleSignIn.authenticate();
+      final token = googleUser.authentication.idToken;
+      if (token == null) {
+        throw const AuthFailure('No se pudo confirmar tu cuenta de Google.');
+      }
+      await user.reauthenticateWithCredential(
+        GoogleAuthProvider.credential(idToken: token),
+      );
+    } else {
+      if (user.email == null || password == null || password.isEmpty) {
+        throw const AuthFailure(
+          'Ingresa tu contraseña para confirmar tu identidad.',
+        );
+      }
+      await user.reauthenticateWithCredential(
+        EmailAuthProvider.credential(email: user.email!, password: password),
+      );
+    }
+    await user.getIdToken(true);
+    await FirebaseFunctions.instanceFor(
+      region: 'us-central1',
+    ).httpsCallable('deleteOwnAccount').call({'confirmation': 'ELIMINAR'});
+    await signOut();
   }
 
   Future<void> signOut() async {

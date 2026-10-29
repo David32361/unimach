@@ -6,8 +6,8 @@ este repositorio.
 
 ## Estado actual
 
-- Version beta: `0.1.0-beta.4+7` en ambos `pubspec.yaml`.
-- Tag `v0.1.0-beta.4` y GitHub Release preliminar para testers. No es una
+- Version beta: `0.1.0-beta.5+8` en ambos `pubspec.yaml`.
+- Tag `v0.1.0-beta.5` y GitHub Release preliminar para testers. No es una
   version estable.
 - Los dos proyectos comparten numero de version mientras se desarrollan como
   una sola linea de producto. El numero despues de `+` es el build number y

@@ -216,3 +216,34 @@ test('only mutual likes can atomically create a match and its conversation', asy
     await environment.cleanup();
   }
 });
+
+test('sanction notices are private and clients cannot forge permanent deletion jobs', async () => {
+  const environment = await initializeTestEnvironment({
+    projectId: 'demo-unimatch-notices',
+    firestore: {rules: readFileSync(resolve(__dirname, '../../firestore.rules'), 'utf8')},
+  });
+  try {
+    await environment.withSecurityRulesDisabled(async context => {
+      await setDoc(doc(context.firestore(), 'users/alice'), {accountStatus:'active'});
+    });
+    const admin = environment.authenticatedContext('admin', {email_verified:true, admin:true}).firestore();
+    const alice = environment.authenticatedContext('alice', {email_verified:true}).firestore();
+    const other = environment.authenticatedContext('other', {email_verified:true}).firestore();
+    const notice = {
+      status:'banned', reason:'Incumplimiento de normas', message:'Aviso de cuenta y apelación',
+      supportEmail:'unimatch7@gmail.com', issuedAt:serverTimestamp(),
+    };
+    await assertFails(setDoc(doc(admin, 'accountNotices/alice'), notice));
+    const batch = writeBatch(admin);
+    batch.update(doc(admin, 'users/alice'), {accountStatus:'banned'});
+    batch.set(doc(admin, 'accountNotices/alice'), notice);
+    await assertSucceeds(batch.commit());
+    await assertSucceeds(getDoc(doc(alice, 'accountNotices/alice')));
+    await assertFails(getDoc(doc(other, 'accountNotices/alice')));
+    await assertFails(getDocs(collection(alice, 'accountNotices')));
+    await assertFails(setDoc(doc(alice, 'accountNotices/alice'), {...notice, status:'active'}));
+    await assertFails(setDoc(doc(alice, 'accountDeletionJobs/alice'), {status:'pending'}));
+    await assertFails(setDoc(doc(admin, 'accountDeletionJobs/alice'), {status:'pending'}));
+    await assertFails(updateDoc(doc(admin, 'users/alice'), {accountStatus:'deleted'}));
+  } finally { await environment.cleanup(); }
+});

@@ -8,6 +8,8 @@ import 'package:unimatch_user/presentation/features/auth/forgot_password_screen.
 import 'package:unimatch_user/presentation/features/auth/login_screen.dart';
 import 'package:unimatch_user/presentation/features/auth/register_screen.dart';
 import 'package:unimatch_user/presentation/features/auth/verify_email_screen.dart';
+import 'package:unimatch_user/presentation/features/auth/delete_account_screen.dart';
+import 'package:unimatch_user/providers/account_notice_provider.dart';
 import 'package:unimatch_user/presentation/features/home/authenticated_home_screen.dart';
 import 'package:unimatch_user/presentation/features/messages/chat_screen.dart';
 import 'package:unimatch_user/presentation/features/profile/interest_selection_screen.dart';
@@ -24,6 +26,10 @@ final routerProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(path: '/login', builder: (_, _) => const LoginScreen()),
       GoRoute(path: '/register', builder: (_, _) => const RegisterScreen()),
+      GoRoute(
+        path: '/account/delete',
+        builder: (_, _) => const DeleteAccountScreen(),
+      ),
       GoRoute(
         path: '/verify-email',
         builder: (_, _) => const VerifyEmailScreen(),
@@ -69,6 +75,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       final authState = ref.read(authStateChangesProvider);
       final adminAccess = ref.read(adminAccessProvider);
       final profileState = ref.read(currentProfileProvider);
+      final notice = ref.read(accountNoticeProvider).value;
       if (authState.isLoading) return null;
       final signedIn = authState.value != null;
       final public =
@@ -77,6 +84,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           state.matchedLocation == '/forgot-password';
       if (!signedIn && !public) return '/login';
       if (!signedIn) return null;
+      if (state.matchedLocation == '/account/delete') return null;
       final verifying =
           state.matchedLocation == '/verify-email' ||
           state.matchedLocation == '/email-verified';
@@ -90,7 +98,8 @@ final routerProvider = Provider<GoRouter>((ref) {
       }
       if (state.matchedLocation == '/admin') return '/home';
       if (profileState.isLoading) return null;
-      final accountStatus = profileState.value?.accountStatus;
+      final accountStatus =
+          profileState.value?.accountStatus ?? notice?['status'] as String?;
       if (accountStatus != null && accountStatus != 'active') {
         return state.matchedLocation == '/account-unavailable'
             ? null
@@ -133,5 +142,6 @@ class _RouterRefreshNotifier extends ChangeNotifier {
     ref.listen(authStateChangesProvider, (_, _) => notifyListeners());
     ref.listen(adminAccessProvider, (_, _) => notifyListeners());
     ref.listen(currentProfileProvider, (_, _) => notifyListeners());
+    ref.listen(accountNoticeProvider, (_, _) => notifyListeners());
   }
 }

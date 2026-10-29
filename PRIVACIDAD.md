@@ -1,9 +1,9 @@
 # Politica de privacidad de UniMatch (borrador para beta)
 
-Actualizada el 21 de octubre de 2026. Esta politica describe la aplicacion
+Actualizada el 29 de octubre de 2026. Esta politica describe la aplicacion
 Android UniMatch y su panel administrativo. El responsable del tratamiento es
 **David Martinez Polvadera**; contacto privado:
-**David13dpb0490e@gmail.com**. Domicilio indicado por el responsable:
+**unimatch7@gmail.com**. Domicilio indicado por el responsable:
 **Barrio Moxthe, La Vega, Cardonal, Hidalgo, C.P. 42376, Mexico; calle sin
 nombre y sin numero exterior (s/n)**. **Este documento aun requiere revision
 legal y un procedimiento operativo de eliminacion definitiva de cuenta y
@@ -51,15 +51,25 @@ moderacion segun la cuenta y sus permisos. No se venden datos personales.
 
 ## Conservacion y eliminacion
 
-El perfil y el historial asociado permanecen mientras exista la cuenta o
-hasta que el responsable aplique un procedimiento de eliminacion. La accion
-"Eliminado" del panel actual desactiva la cuenta logicamente, pero **no borra
-de forma definitiva** la cuenta de Firebase Authentication ni todos sus datos.
-Por ello todavia no se ofrece una via completa para solicitar y ejecutar el
-borrado definitivo dentro y fuera de la aplicacion. Esta funcion debe estar
-operativa antes de enviar UniMatch a Amazon Appstore. Algunos registros de
-seguridad podrian necesitar conservacion limitada para atender abusos u
-obligaciones legales; esa politica y sus plazos aun deben definirse.
+El perfil y el historial asociado permanecen mientras exista la cuenta o hasta
+que se complete su eliminación. Puedes solicitarla desde **Perfil → Eliminar mi
+cuenta**, desde la pantalla de verificación de correo o siguiendo las instrucciones
+en https://unimatch-daniel-2026.web.app/account-deletion/. En esta beta el borrado
+automático está pendiente de activar el servicio de servidor. Envía la solicitud
+a **unimatch7@gmail.com** desde la dirección asociada a tu cuenta. Abrir la pantalla
+o copiar el correo no envía una solicitud ni borra datos.
+
+El procedimiento de servidor preparado elimina Firebase Authentication, perfiles,
+dispositivos, sesiones, intereses, matches, bloqueos y reportes asociados. También
+elimina las conversaciones compartidas y sus mensajes para ambos participantes.
+No se garantiza recuperar datos ya borrados mediante una apelación.
+
+Tras activar el procedimiento, los registros mínimos de la eliminación y las
+nuevas acciones administrativas tendrán un vencimiento de 30 días; la limpieza TTL
+es asíncrona. Los avisos de una sanción vigente se conservan hasta su resolución.
+Los registros históricos de administración previos a esta versión no tienen aún
+vencimiento automático. La gestión manual y los plazos de respuesta deben validarse
+operativamente antes de la publicación en una tienda.
 
 ## Control, derechos y contacto
 
@@ -67,12 +77,11 @@ Desde la aplicacion se puede modificar universidad, carrera, descripcion,
 avatar y gustos, y cerrar sesion. El permiso de notificaciones se gestiona en
 Android. Para solicitar acceso, rectificacion, cancelacion u oposicion (ARCO),
 revocar el consentimiento o limitar el uso de tus datos, escribe a
-**David13dpb0490e@gmail.com** desde el correo asociado a tu cuenta, indica
+**unimatch7@gmail.com** desde el correo asociado a tu cuenta, indica
 el derecho que deseas ejercer y describe los datos involucrados. El
 responsable podra pedir informacion adicional para comprobar tu identidad
-antes de responder. No compartas contrasenas. La operacion de cancelacion
-definitiva todavia requiere desarrollo; la respuesta no debe confundirse con
-la desactivacion logica disponible en Admin. **No incluyas datos personales
+antes de responder. No compartas contrasenas. El borrado automático requiere activar el servicio de servidor; una solicitud
+no confirma que el borrado haya concluido. **No incluyas datos personales
 en los issues publicos de GitHub.**
 
 Domicilio del responsable: Barrio Moxthe, La Vega, Cardonal, Hidalgo,

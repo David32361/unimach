@@ -1,7 +1,7 @@
 # UniMatch
 
-Versión beta actual: `0.1.0-beta.4+7` en ambas aplicaciones. El APK Android
-para testers está en [GitHub Releases](https://github.com/David32361/app_unimach/releases/tag/v0.1.0-beta.4).
+Versión beta actual: `0.1.0-beta.5+8` en ambas aplicaciones. El APK Android
+para testers está en [GitHub Releases](https://github.com/David32361/app_unimach/releases/tag/v0.1.0-beta.5).
 La identidad visual y el logo están en [branding/](branding/README.md).
 Las correcciones de los reportes recibidos hasta el 25 de octubre se describen
 en [la entrega del 28 de octubre](docs/ENTREGA_TESTERS_2026-10-28.md).
@@ -26,6 +26,11 @@ UniMatch tiene solamente dos aplicaciones conectadas al proyecto Firebase
 No incluye Smart TV, smartwatch, chatbot ni un backend independiente. Las
 imagenes de perfil son avatares incluidos en las aplicaciones; no se permiten
 subidas de fotografias.
+
+Contacto para quejas, sugerencias y apelaciones: **unimatch7@gmail.com**.
+La solicitud de eliminación está en Perfil → Eliminar mi cuenta y en
+[la página de ayuda](https://unimatch-daniel-2026.web.app/account-deletion/).
+El borrado automático está pendiente; [estado y activación](docs/GESTION_CUENTAS.md).
 
 ## Funcionalidades
 
@@ -65,7 +70,8 @@ subidas de fotografias.
 - Busqueda por nombre o correo.
 - Filtros por genero, edad, universidad, carrera, estado, registro y actividad.
 - Orden por fecha o actividad.
-- Suspension, baneo, reactivacion y eliminacion logica con motivo.
+- Suspensión, baneo y reactivación con motivo y aviso privado.
+- Eliminación definitiva preparada, pendiente de activar Cloud Functions (Blaze).
 - Moderacion de reportes: revisar, resolver o rechazar.
 - Suspension o baneo desde un reporte.
 - Consulta de mensajes unicamente de los ultimos tres dias.

@@ -100,6 +100,13 @@ class AuthController extends AsyncNotifier<void> {
     );
   }
 
+  Future<bool> deleteOwnAccount({String? password, bool withGoogle = false}) =>
+      _run(
+        () => ref
+            .read(authRepositoryProvider)
+            .deleteOwnAccount(password: password, withGoogle: withGoogle),
+      );
+
   Future<bool> signOut() {
     return _run(() async {
       final user = ref.read(firebaseAuthProvider).currentUser;

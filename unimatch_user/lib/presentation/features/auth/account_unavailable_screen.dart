@@ -2,13 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:unimatch_user/providers/auth_providers.dart';
 import 'package:unimatch_user/providers/profile_providers.dart';
+import 'package:unimatch_user/providers/account_notice_provider.dart';
+import 'package:unimatch_admin/presentation/widgets/support_contact.dart';
+import 'package:go_router/go_router.dart';
 
 class AccountUnavailableScreen extends ConsumerWidget {
   const AccountUnavailableScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final status = ref.watch(currentProfileProvider).value?.accountStatus;
+    final notice = ref.watch(accountNoticeProvider).value;
+    final status =
+        ref.watch(currentProfileProvider).value?.accountStatus ??
+        notice?['status'] as String?;
+    final reason = notice?['reason'] as String?;
     final (title, message, icon) = switch (status) {
       'suspended' => (
         'Cuenta suspendida',
@@ -55,6 +62,21 @@ class AccountUnavailableScreen extends ConsumerWidget {
                 ),
                 const SizedBox(height: 12),
                 Text(message, textAlign: TextAlign.center),
+                if (reason != null && reason.isNotEmpty) ...[
+                  const SizedBox(height: 16),
+                  Text('Motivo: $reason', textAlign: TextAlign.center),
+                ],
+                const SizedBox(height: 20),
+                const Text(
+                  'Puedes solicitar una revisión desde el correo asociado a tu cuenta. Los datos borrados definitivamente no pueden recuperarse.',
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 16),
+                const SupportContact(),
+                TextButton(
+                  onPressed: () => context.push('/account/delete'),
+                  child: const Text('Solicitar eliminación de mis datos'),
+                ),
                 const SizedBox(height: 28),
                 OutlinedButton.icon(
                   onPressed: () =>

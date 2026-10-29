@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_functions/cloud_functions.dart';
+import 'package:unimatch_admin/core/support.dart';
 import 'package:unimatch_admin/models/admin_report.dart';
 import 'package:unimatch_admin/models/admin_user.dart';
 import 'package:unimatch_admin/models/recent_message.dart';
@@ -78,6 +80,20 @@ class AdminRepository {
     required String status,
     required String reason,
   }) async {
+    if (accountManagementBackendEnabled) {
+      await FirebaseFunctions.instanceFor(region: 'us-central1')
+          .httpsCallable('manageAccount')
+          .call({'userId': user.uid, 'status': status, 'reason': reason});
+      return;
+    }
+    if (status == 'deleted') {
+      throw FirebaseException(
+        plugin: 'unimatch',
+        code: 'backend-unavailable',
+        message:
+            'La eliminación definitiva requiere activar el servicio de cuentas.',
+      );
+    }
     final batch = _firestore.batch();
     batch.update(_firestore.collection('users').doc(user.uid), {
       'accountStatus': status,
@@ -94,6 +110,14 @@ class AdminRepository {
       'newStatus': status,
       'reason': reason,
       'createdAt': FieldValue.serverTimestamp(),
+    });
+    batch.set(_firestore.collection('accountNotices').doc(user.uid), {
+      'status': status,
+      'reason': reason,
+      'message':
+          'Estado de la cuenta: $status. Motivo: $reason. Puedes solicitar una revisión en $supportEmail. No compartas contraseñas.',
+      'supportEmail': supportEmail,
+      'issuedAt': FieldValue.serverTimestamp(),
     });
     await batch.commit();
   }

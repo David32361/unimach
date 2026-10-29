@@ -20,7 +20,10 @@ class AuthFailure implements Exception {
       'invalid-credential' ||
       'wrong-password' ||
       'user-not-found' => 'Correo o contraseña incorrectos.',
-      'user-disabled' => 'Esta cuenta se encuentra deshabilitada.',
+      'user-disabled' =>
+        'Tu cuenta no está disponible. Puedes solicitar una revisión en unimatch7@gmail.com.',
+      'requires-recent-login' =>
+        'Confirma tu identidad iniciando sesión de nuevo.',
       'too-many-requests' => 'Demasiados intentos. Intenta más tarde.',
       'network-request-failed' => 'No fue posible conectarse a Firebase.',
       _ => 'No fue posible completar la autenticación.',
