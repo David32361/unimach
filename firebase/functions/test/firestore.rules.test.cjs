@@ -230,7 +230,7 @@ test('sanction notices are private and clients cannot forge permanent deletion j
     const alice = environment.authenticatedContext('alice', {email_verified:true}).firestore();
     const other = environment.authenticatedContext('other', {email_verified:true}).firestore();
     const notice = {
-      status:'banned', reason:'Incumplimiento de normas', message:'Aviso de cuenta y apelación',
+      status:'banned', reason:'Spam', message:'Aviso de cuenta y apelación',
       supportEmail:'unimatch7@gmail.com', issuedAt:serverTimestamp(),
     };
     await assertFails(setDoc(doc(admin, 'accountNotices/alice'), notice));
